@@ -1,0 +1,28 @@
+.padding-login{
+    padding-top: 130px;
+}
+
+.orange-color{
+    color: #FD814C;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.width-login{
+    margin-top: 20px;
+    width: 204px;
+    background-color: #FD814C;
+}
+
+.bold{
+    font-weight: 900;
+}
+
+:host ::ng-deep .mat-form-field-wrapper{
+    padding-bottom: 0;
+}

@@ -4,7 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item disabled>
+      <button mat-menu-item>
         <mat-icon>home</mat-icon>
         <span class="lead-font">Dashboard</span>
       </button>
@@ -30,7 +30,7 @@
   </mat-toolbar>
   <mat-form-field appearance="outline">
     <mat-label>Search</mat-label>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    <input matInput (keyup)="applyFilter($event.target.value)">
   </mat-form-field>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 lead-font">
     

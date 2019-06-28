@@ -1,0 +1,42 @@
+<div fxFill fxLayout="column" fxLayoutAlign="center center" >
+    <mat-toolbar class="dark-bg">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>home</mat-icon>
+          <span class="lead-font">Dashboard</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>center_focus_weak</mat-icon>
+          <span class="lead-font">Scan</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>show_chart</mat-icon>
+          <span class="lead-font">Leads</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span class="lead-font">Settings</span>
+        </button>
+      </mat-menu>
+      <span class="spacer"></span>
+      <span class="orange-color text-center"><strong class="bold">Lead</strong>logic</span>
+      <span class="spacer"></span>
+      <button mat-icon-button>
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </mat-toolbar>
+    <span class="orange-color text-center"><strong class="bold">Total</strong> leads: <strong class="bold">10</strong></span>
+    <div class="m-v-75" fxFill fxLayout="row" fxLayoutAlign="space-around center">
+      <button class="size-75 lead-font f-size-18" mat-fab matBadge="0" matBadgePosition="before">NONE</button>
+      <button class="size-75 lead-font f-size-18" mat-fab matBadge="3" matBadgeColor="warn">A</button>
+    </div>
+    <div class="m-v-75" fxFill fxLayout="row" fxLayoutAlign="space-around center">
+      <button class="size-75 lead-font f-size-18" mat-fab matBadge="4" matBadgePosition="before">B</button>
+      <button class="size-75 lead-font f-size-18" mat-fab matBadge="3" matBadgeColor="green">C</button>
+    </div>
+    <span class="orange-color text-center"><mat-icon>email</mat-icon><strong class="bold"> Email</strong> leads</span>
+  </div>
+  

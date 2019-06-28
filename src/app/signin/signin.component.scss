@@ -1,11 +1,14 @@
+$leadlogic-font: 'Montserrat', sans-serif;
+$leadlogic-orange: #FD814C;
+
 .padding-login{
     padding-top: 130px;
 }
 
 .orange-color{
-    color: #FD814C;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 28px;
+    color: $leadlogic-orange;
+    font-family: $leadlogic-font;
+    font-size: 36px;
     margin-bottom: 20px;
 }
 
@@ -13,10 +16,19 @@
     text-align: center;
 }
 
+mat-form-field.mat-form-field {
+    font-size: 14px;
+    font-family: $leadlogic-font;
+}
+
 .width-login{
     margin-top: 20px;
     width: 204px;
-    background-color: #FD814C;
+    height: 45PX;
+    font-size: 16px;
+    background-color: $leadlogic-orange;
+    font-family: $leadlogic-font;
+    font-weight: 900;
 }
 
 .bold{
@@ -26,3 +38,34 @@
 :host ::ng-deep .mat-form-field-wrapper{
     padding-bottom: 0;
 }
+
+.slide-in-fwd-center {
+	-webkit-animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+ @-webkit-keyframes slide-in-fwd-center {
+    0% {
+      -webkit-transform: translateZ(-1400px);
+              transform: translateZ(-1400px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-in-fwd-center {
+    0% {
+      -webkit-transform: translateZ(-1400px);
+              transform: translateZ(-1400px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+              transform: translateZ(0);
+      opacity: 1;
+    }
+  }
+  

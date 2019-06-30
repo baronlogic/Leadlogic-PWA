@@ -1,10 +1,10 @@
-<div fxFill fxLayout="column" fxLayoutAlign="center center" >
+<div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="center center" >
     <mat-toolbar class="dark-bg">
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item routerLink="/dashboard">
           <mat-icon>home</mat-icon>
           <span class="lead-font">Dashboard</span>
         </button>
@@ -24,7 +24,7 @@
       <span class="spacer"></span>
       <span class="orange-color text-center"><strong class="bold">Lead</strong>logic</span>
       <span class="spacer"></span>
-      <button mat-icon-button>
+      <button mat-icon-button routerLink="/sign-in">
         <mat-icon>exit_to_app</mat-icon>
       </button>
     </mat-toolbar>

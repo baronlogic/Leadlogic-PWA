@@ -14,10 +14,13 @@ import {MatBadgeModule} from '@angular/material/badge';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SigninComponent } from './signin/signin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ScannerComponent } from './scanner/scanner.component';
 import { LeadsComponent } from './leads/leads.component';
 
 @NgModule({
@@ -25,6 +28,7 @@ import { LeadsComponent } from './leads/leads.component';
     AppComponent,
     SigninComponent,
     DashboardComponent,
+    ScannerComponent,
     LeadsComponent
   ],
   imports: [
@@ -39,7 +43,8 @@ import { LeadsComponent } from './leads/leads.component';
     MatTableModule,
     MatMenuModule,
     MatBadgeModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    ZXingScannerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

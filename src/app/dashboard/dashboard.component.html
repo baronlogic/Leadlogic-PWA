@@ -1,33 +1,5 @@
 <div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="center center" >
-  <mat-toolbar class="dark-bg">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>home</mat-icon>
-        <span class="lead-font">Dashboard</span>
-      </button>
-      <button mat-menu-item routerLink="/scanner">
-        <mat-icon>center_focus_weak</mat-icon>
-        <span class="lead-font">Scan</span>
-      </button>
-      <button mat-menu-item routerLink="/leads">
-        <mat-icon>show_chart</mat-icon>
-        <span class="lead-font">Leads</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>settings</mat-icon>
-        <span class="lead-font">Settings</span>
-      </button>
-    </mat-menu>
-    <span class="spacer"></span>
-    <span class="orange-color text-center"><strong class="bold">Lead</strong>logic</span>
-    <span class="spacer"></span>
-    <button mat-icon-button routerLink="/sign-in">
-      <mat-icon>exit_to_app</mat-icon>
-    </button>
-  </mat-toolbar>
+  <app-navbar></app-navbar>
   <mat-form-field appearance="outline">
     <mat-label>Search</mat-label>
     <input matInput (keyup)="applyFilter($event.target.value)">

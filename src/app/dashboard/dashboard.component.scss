@@ -1,26 +1,4 @@
-$leadlogic-dark: #222327;
 $leadlogic-font: 'Montserrat', sans-serif;
-$leadlogic-orange: #FD814C;
-
-.dark-bg{
-    background-color: $leadlogic-dark;
-}
-
-.lead-font{
-    font-family: $leadlogic-font;
-}
-
-.orange-color{
-    color: $leadlogic-orange;
-    font-family: $leadlogic-font;
-    font-size: 24px;
-    margin-bottom: 15px;
-    margin-top: 15px;
-}
-
-.spacer {
-    flex: 1 1 auto;
-}
 
 mat-form-field.mat-form-field {
     font-size: 12px;
@@ -30,4 +8,4 @@ mat-form-field.mat-form-field {
 
 table {
     width: 100%;
-  }
+}

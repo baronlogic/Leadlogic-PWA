@@ -1,8 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
+$leadlogic-font: 'Montserrat', sans-serif;
+$leadlogic-orange: #FD814C;
+$leadlogic-dark: #222327;
+
 body {
     background-color: #222327;
     color: #fff;
+}
+
+app-navbar{
+  width: 100%;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.bold{
+  font-weight: 900;
+}
+
+.lead-font{
+  font-family: $leadlogic-font;
+}
+
+.leadlogic-title{
+  color: $leadlogic-orange;
+  font-family: $leadlogic-font;
+  font-size: 24px;
+  margin-bottom: 15px;
+  margin-top: 15px;
 }
 
 .slide-in-fwd-center {

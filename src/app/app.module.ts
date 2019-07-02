@@ -22,6 +22,7 @@ import { SigninComponent } from './signin/signin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { LeadsComponent } from './leads/leads.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { LeadsComponent } from './leads/leads.component';
     SigninComponent,
     DashboardComponent,
     ScannerComponent,
-    LeadsComponent
+    LeadsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

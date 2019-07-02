@@ -5,15 +5,11 @@ $leadlogic-orange: #FD814C;
     padding-top: 130px;
 }
 
-.orange-color{
+.sign-in-title{
     color: $leadlogic-orange;
     font-family: $leadlogic-font;
     font-size: 36px;
     margin-bottom: 20px;
-}
-
-.text-center{
-    text-align: center;
 }
 
 mat-form-field.mat-form-field {
@@ -21,7 +17,7 @@ mat-form-field.mat-form-field {
     font-family: $leadlogic-font;
 }
 
-.width-login{
+.width-login-btn{
     margin-top: 20px;
     width: 204px;
     height: 45PX;
@@ -31,41 +27,7 @@ mat-form-field.mat-form-field {
     font-weight: 900;
 }
 
-.bold{
-    font-weight: 900;
-}
-
 :host ::ng-deep .mat-form-field-wrapper{
     padding-bottom: 0;
 }
-
-.slide-in-fwd-center {
-	-webkit-animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-    animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-}
-
- @-webkit-keyframes slide-in-fwd-center {
-    0% {
-      -webkit-transform: translateZ(-1400px);
-              transform: translateZ(-1400px);
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: translateZ(0);
-              transform: translateZ(0);
-      opacity: 1;
-    }
-  }
-  @keyframes slide-in-fwd-center {
-    0% {
-      -webkit-transform: translateZ(-1400px);
-              transform: translateZ(-1400px);
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: translateZ(0);
-              transform: translateZ(0);
-      opacity: 1;
-    }
-  }
   

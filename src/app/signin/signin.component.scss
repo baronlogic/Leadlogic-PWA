@@ -1,0 +1,33 @@
+$leadlogic-font: 'Montserrat', sans-serif;
+$leadlogic-orange: #FD814C;
+
+.padding-login{
+    padding-top: 130px;
+}
+
+.sign-in-title{
+    color: $leadlogic-orange;
+    font-family: $leadlogic-font;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+mat-form-field.mat-form-field {
+    font-size: 14px;
+    font-family: $leadlogic-font;
+}
+
+.width-login-btn{
+    margin-top: 20px;
+    width: 204px;
+    height: 45PX;
+    font-size: 16px;
+    background-color: $leadlogic-orange;
+    font-family: $leadlogic-font;
+    font-weight: 900;
+}
+
+:host ::ng-deep .mat-form-field-wrapper{
+    padding-bottom: 0;
+}
+  

@@ -7,8 +7,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { PersonsService } from '../services/persons.service';
 
-
-
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -17,6 +15,8 @@ import { PersonsService } from '../services/persons.service';
 export class SigninComponent implements OnInit {
 
   user: any;
+
+  auxRes: any;
 
   signInForm: FormGroup;
 
@@ -62,15 +62,16 @@ export class SigninComponent implements OnInit {
       res => {
         this.bSignIn = false;
         //console.log(res);
-        if(res.type == 'error'){
-          this.openSnackBar(res.message);
+        this.auxRes = res;
+        if(this.auxRes.type == 'error'){
+          this.openSnackBar(this.auxRes.message);
           return;
         }
-        else if(res.type == 'success'){
+        else if(this.auxRes.type == 'success'){
           let auxUser = {
-            personId: res.person_id,
-            clientId: res.client_id,
-            projectId: res.project_id
+            personId: this.auxRes.person_id,
+            clientId: this.auxRes.client_id,
+            projectId: this.auxRes.project_id
           }
           localStorage.setItem('userLogged', JSON.stringify(auxUser));
           this.goToDashboard();

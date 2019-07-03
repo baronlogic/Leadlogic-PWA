@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scanner',
@@ -10,9 +11,17 @@ export class ScannerComponent implements OnInit {
   bPersonId = false;
   personId: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    if(!localStorage.getItem('userLogged')){
+      this.goToLogin();
+      return;
+    }
+  }
+
+  goToLogin() {
+    this.router.navigate(['']);
   }
 
   scanSuccessHandler($event){

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-leads',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LeadsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    if(!localStorage.getItem('userLogged')){
+      this.goToLogin();
+      return;
+    }
+  }
+
+  goToLogin() {
+    this.router.navigate(['']);
   }
 
 }

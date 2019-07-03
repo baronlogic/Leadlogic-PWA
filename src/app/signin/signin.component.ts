@@ -33,6 +33,9 @@ export class SigninComponent implements OnInit {
   { }
 
   ngOnInit() {
+    if(localStorage.getItem('userLogged')){
+      this.goToDashboard();
+    }
     this.signInForm = this.formBuilder.group({
       Identifier: ['', Validators.required],
       Password: ['', Validators.required]
@@ -58,7 +61,7 @@ export class SigninComponent implements OnInit {
     .subscribe(
       res => {
         this.bSignIn = false;
-        console.log(res);
+        //console.log(res);
         if(res.type == 'error'){
           this.openSnackBar(res.message);
           return;

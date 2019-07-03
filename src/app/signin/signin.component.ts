@@ -50,12 +50,14 @@ export class SigninComponent implements OnInit {
   }
 
   handleSignIn(){
+    this.bSignIn = true;
     let formData = new FormData();
     formData.append('Identifier', this.signInForm.get('Identifier').value);
     formData.append('Password', this.signInForm.get('Password').value);
     this.personsService.validateUserCredentials(formData)
     .subscribe(
       res => {
+        this.bSignIn = false;
         console.log(res);
         if(res.type == 'error'){
           this.openSnackBar(res.message);
@@ -72,6 +74,7 @@ export class SigninComponent implements OnInit {
         }
       },
       err => {
+        this.bSignIn = false;
         console.log(err);
       }
     );

@@ -1,5 +1,5 @@
 <div fxFill class="padding-login slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center" >
-  <span class="sign-in-title text-center"><strong class="bold">Lead</strong><br>logic</span>
+  <span class="sign-in-title text-center"><strong class="bold">Lead</strong>logic</span>
   <form [formGroup]="signInForm" (ngSubmit)="handleSignIn()" fxLayout="column" fxLayoutAlign="center center">
     <mat-form-field appearance="outline">
       <mat-label>User ID</mat-label>
@@ -8,7 +8,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Password</mat-label>
       <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="Password" class="form-control">
-      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+      <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>

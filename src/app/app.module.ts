@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule  } from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -11,6 +13,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatBadgeModule} from '@angular/material/badge';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -22,7 +25,11 @@ import { SigninComponent } from './signin/signin.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { LeadsComponent } from './leads/leads.component';
+
 import { NavbarComponent } from './components/navbar/navbar.component';
+
+import { PersonsService } from './services/persons.service';
+import { DeviceScansService } from './services/device-scans.service';
 
 @NgModule({
   declarations: [
@@ -35,6 +42,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatFormFieldModule,
@@ -45,10 +54,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MatTableModule,
     MatMenuModule,
     MatBadgeModule,
+    MatSnackBarModule,
     FlexLayoutModule,
     ZXingScannerModule
   ],
-  providers: [],
+  providers: [PersonsService, DeviceScansService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

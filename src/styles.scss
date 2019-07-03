@@ -33,6 +33,17 @@ app-navbar{
   margin-top: 15px;
 }
 
+.mat-snack-bar-container{
+  background-color: $leadlogic-dark;
+  color: $leadlogic-orange;
+  
+}
+
+.mat-simple-snackbar, .mat-button-wrapper{
+  font-family: $leadlogic-font;
+  font-size: smaller;
+}
+
 .slide-in-fwd-center {
 	-webkit-animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;

@@ -13,3 +13,8 @@ table {
 th.mat-header-cell {
     text-align: center;
 }
+
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}

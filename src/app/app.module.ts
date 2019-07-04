@@ -15,6 +15,9 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -57,6 +60,9 @@ import { DeviceScansService } from './services/device-scans.service';
     MatBadgeModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressBarModule,
     FlexLayoutModule,
     ZXingScannerModule
   ],

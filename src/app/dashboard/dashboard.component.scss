@@ -1,4 +1,5 @@
 $leadlogic-font: 'Montserrat', sans-serif;
+$leadlogic-orange: #FD814C;
 
 mat-form-field.mat-form-field {
     font-size: 12px;
@@ -17,4 +18,22 @@ th.mat-header-cell {
 :host ::ng-deep .mat-sort-header-container {
     display: flex;
     justify-content: center;
+}
+
+:host ::ng-deep .mat-form-field-wrapper{
+    padding-bottom: 10px;
+}
+
+.myscans-title{
+    color: $leadlogic-orange;
+    font-family: $leadlogic-font;
+    font-size: 14px;
+}
+
+.table-bg{
+    background-color: #424242;
+}
+
+.toolbar-table-h{
+    height: 20px;
 }

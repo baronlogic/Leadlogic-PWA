@@ -60,7 +60,7 @@ export class DashboardComponent implements OnInit {
     .subscribe(
       res => {
         this.alluserData = res;
-        //console.log(this.alluserData);
+        console.log(this.alluserData);
         this.openSnackBar('Welcome '+this.alluserData.First_Name+' '+this.alluserData.Family_Name);
       },
       err => {

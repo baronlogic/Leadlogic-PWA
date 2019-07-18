@@ -1,11 +1,16 @@
 <div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="center center" >
   <app-navbar></app-navbar>
   <mat-progress-bar *ngIf="!this.dataSource" mode="indeterminate"></mat-progress-bar>
-  <div class="width-100" [hidden]="!this.dataSource">
+  <div class="width-100 text-center" [hidden]="!this.dataSource">
     <mat-form-field appearance="outline">
       <mat-label>Search</mat-label>
       <input matInput (keyup)="applyFilter($event.target.value)">
     </mat-form-field>
+    <mat-toolbar class="table-bg toolbar-table-h">
+      <span class="spacer"></span>
+      <span class="myscans-title text-center"><strong class="bold">MY</strong> SCANS</span>
+      <span class="spacer"></span>
+    </mat-toolbar>
     <table mat-table [dataSource]="this.dataSource" matSort class="mat-elevation-z8 lead-font text-center">
       
         <!-- Family Name Column -->

@@ -9,8 +9,7 @@ const ENDPOINT_NAME = 'DeviceScans';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Token-App': '7875d82ca05f8ba818011eb04a890c20cb44c52e',
-    'content-type': 'multipart/form-data'
+    'Token-App': '7875d82ca05f8ba818011eb04a890c20cb44c52e'
   })
 }
 
@@ -26,7 +25,7 @@ export class DeviceScansService {
   saveNotesForAPerson(){}
 
   getAllScans(clientId: string, projectId: string, personId: string){
-    return this.http.get(API_URL+clientId+'-'+projectId+'-2-0/'+ENDPOINT_NAME+'/'+personId);
+    return this.http.get(API_URL+clientId+'-'+projectId+'-2-0/'+ENDPOINT_NAME+'/'+personId, httpOptions);
   }
 
 }

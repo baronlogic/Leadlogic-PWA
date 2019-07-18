@@ -57,11 +57,12 @@ export class SigninComponent implements OnInit {
     let formData = new FormData();
     formData.append('Identifier', this.signInForm.get('Identifier').value);
     formData.append('Password', this.signInForm.get('Password').value);
+    //console.log(this.signInForm.value);
     this.personsService.validateUserCredentials(formData)
     .subscribe(
       res => {
         this.bSignIn = false;
-        //console.log(res);
+        console.log(res);
         this.auxRes = res;
         if(this.auxRes.type == 'error'){
           this.openSnackBar(this.auxRes.message);

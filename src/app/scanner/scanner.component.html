@@ -1,5 +1,9 @@
 <div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="center center" >
   <app-navbar></app-navbar>
-  <zxing-scanner (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>
+  <zxing-scanner
+    (camerasFound)="camerasFoundHandler($event)"
+    (scanSuccess)="scanSuccessHandler($event)"
+    [enable]="scannerEnabled">
+  </zxing-scanner>
   <span *ngIf="bPersonId" class="leadlogic-title text-center"><strong class="bold">Person ID: </strong>{{personId}}</span>
 </div>

@@ -20,7 +20,7 @@ export class DeviceScansService {
 
   constructor(private http: HttpClient) { }
 
-  createNewDeviceScanRecord(){}
+  saveScanRecord(){}
 
   saveNotesForAPerson(){}
 

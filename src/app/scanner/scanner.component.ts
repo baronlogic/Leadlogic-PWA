@@ -16,7 +16,13 @@ import { DeviceScansService } from '../services/device-scans.service';
 })
 export class ScannerComponent implements OnInit {
 
+  availableDevices: MediaDeviceInfo[];
+  currentDevice: MediaDeviceInfo = null;
+  hasDevices: boolean;
+
   scannerEnabled = true;
+  bScanner = false;
+  bCameras = false;
 
   bPersonId = false;
   personId: string;
@@ -50,6 +56,14 @@ export class ScannerComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  reloadScanner(){
+    this.scannerEnabled = true;
+    this.currentDevice = this.availableDevices[0];
+    this.bScanner = false;
+    this.bCameras = false;
+    this.bPersonId = false;
+  }
+
   getUserData(clientId: string, projectId: string, personId: string){
     this.personsService.getSpecificPersonRecord(clientId, projectId, personId)
     .subscribe(
@@ -58,10 +72,12 @@ export class ScannerComponent implements OnInit {
         this.bPersonId = true;
         if(Array.isArray(res)){
           this.openSnackBar("The person id is not valid!")
+          this.bScanner = true;
           return;
         }
         else{
           this.openSnackBar("Person id scanned successfully!")
+          this.bScanner = true;
         }
       },
       err => {
@@ -70,16 +86,28 @@ export class ScannerComponent implements OnInit {
     );
   }
 
+  onCamerasFound(devices: MediaDeviceInfo[]): void {
+    this.availableDevices = devices;
+    this.hasDevices = Boolean(devices && devices.length);
+  }
+
+  onDeviceSelectChange(selected: string) {
+    const device = this.availableDevices.find(x => x.deviceId === selected);
+    this.currentDevice = device || null;
+  }
+
   camerasFoundHandler($event){
     console.log($event);
   }
 
   scanSuccessHandler($event){
     console.log($event);
+    this.bCameras = true;
     this.scannerEnabled = false;
     let isnum = /^\d+$/.test($event);
     if($event.split(' ').length != 1 || !isnum || $event.length != 7){
       this.openSnackBar("The scanned code does not contain a person id!")
+      this.bScanner = true;
       return;
     }
     else{

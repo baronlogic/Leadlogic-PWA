@@ -18,6 +18,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSelectModule} from '@angular/material/select';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -60,6 +61,7 @@ import { DeviceScansService } from './services/device-scans.service';
     MatBadgeModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     MatPaginatorModule,
     MatSortModule,
     MatProgressBarModule,

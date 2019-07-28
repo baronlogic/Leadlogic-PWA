@@ -1,9 +1,22 @@
 <div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="center center" >
   <app-navbar></app-navbar>
+
+    <mat-form-field [hidden]="scannerEnabled" *ngIf="!bCameras" class="width-100 text-center lead-font bold" appearance="outline">
+      <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
+        <option value="" [selected]="!currentDevice">No Device Selected</option>
+        <option *ngFor="let device of availableDevices" [value]="device.deviceId"
+          [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
+      </select>
+    </mat-form-field>
+
   <zxing-scanner
-    (camerasFound)="camerasFoundHandler($event)"
+    [(device)]="currentDevice"
+    (camerasFound)="onCamerasFound($event)"
     (scanSuccess)="scanSuccessHandler($event)"
     [enable]="scannerEnabled">
   </zxing-scanner>
+  <button *ngIf="bScanner" (click)="reloadScanner()" class="leadlogic-btn" mat-raised-button>
+    <span class="btn-login-text">SCAN AGAIN</span>
+  </button>
   <span *ngIf="bPersonId" class="leadlogic-title text-center"><strong class="bold">Person ID: </strong>{{personId}}</span>
 </div>

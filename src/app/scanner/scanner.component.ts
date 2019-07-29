@@ -22,6 +22,7 @@ export class ScannerComponent implements OnInit {
   scannerEnabled = true;
   bScanner = false;
   bCameras = false;
+  bLoading = false;
 
   bPersonId = false;
   personId: string;
@@ -62,24 +63,95 @@ export class ScannerComponent implements OnInit {
     this.bPersonId = false;
   }
 
+  getTimeFormat(){
+    let d = new Date();
+
+    let year;
+    let month;
+    let day;
+    let hour;
+    let minutes;
+    let seconds;
+
+    year = d.getFullYear();
+
+    let months = ["01","02","03","04","05","06","07","08","09","10","11","12"];
+
+    month = months[d.getMonth()];
+
+    if(d.getDate() <= 9){
+	    day = "0"+d.getDate();
+    }
+    else{
+	    day = d.getDate();
+    }
+
+    if(d.getHours() <= 9){
+	    hour = "0"+d.getHours();
+    }
+    else{
+	    hour = d.getHours();
+    }
+
+    if(d.getMinutes() <= 9){
+	    minutes = "0"+d.getMinutes();
+    }
+    else{
+	    minutes = d.getMinutes();
+    }
+
+    if(d.getSeconds() <= 9){
+	    seconds = "0"+d.getSeconds();
+    }
+    else{
+	    seconds = d.getSeconds();
+    }
+    return year+"-"+month+"-"+day+" "+hour+":"+minutes+":"+seconds;
+  }
+
+  saveScanRecord(personId: string){
+    let formData = new FormData();
+    formData.append('Device_Id', this.user.personId);
+    formData.append('Person_Id', personId);
+    formData.append('Scan_Result', 'VALID');
+    formData.append('Last_Scanned', this.getTimeFormat());
+    this.devicesScanService.saveScanRecord(this.user.clientId, this.user.projectId, formData)
+    .subscribe(
+      res => {
+        //console.log(res);
+        this.openSnackBar("Person id scanned successfully!");
+        this.bPersonId = true;
+        this.bScanner = true;
+        this.bLoading = false;
+      },
+      err => {
+        //console.log(err);
+        this.openSnackBar("Something went wrong!");
+        this.bPersonId = true;
+        this.bScanner = true;
+        this.bLoading = false;
+      }
+    );
+  }
+
   getUserData(clientId: string, projectId: string, personId: string){
     this.personsService.getSpecificPersonRecord(clientId, projectId, personId)
     .subscribe(
       res => {
         //console.log(res);
-        this.bPersonId = true;
         if(Array.isArray(res)){
-          this.openSnackBar("The person id is not valid!")
+          this.openSnackBar("The person id is not valid!");
           this.bScanner = true;
+          this.bLoading = false;
           return;
         }
         else{
-          this.openSnackBar("Person id scanned successfully!")
-          this.bScanner = true;
+          this.saveScanRecord(personId);
         }
       },
       err => {
-        console.log(err);
+        //console.log(err);
+        this.openSnackBar("Something went wrong!");
       }
     );
   }
@@ -95,13 +167,15 @@ export class ScannerComponent implements OnInit {
   }
 
   scanSuccessHandler($event){
-    console.log($event);
+    //console.log($event);
+    this.bLoading = true;
     this.bCameras = true;
     this.scannerEnabled = false;
     let isnum = /^\d+$/.test($event);
     if($event.split(' ').length != 1 || !isnum || $event.length != 7){
-      this.openSnackBar("The scanned code does not contain a person id!")
+      this.openSnackBar("The scanned code does not contain a person id!");
       this.bScanner = true;
+      this.bLoading = false;
       return;
     }
     else{

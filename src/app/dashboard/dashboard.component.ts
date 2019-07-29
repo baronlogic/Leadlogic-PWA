@@ -60,11 +60,11 @@ export class DashboardComponent implements OnInit {
     .subscribe(
       res => {
         this.alluserData = res;
-        console.log(this.alluserData);
+        //console.log(this.alluserData);
         this.openSnackBar('Welcome '+this.alluserData.First_Name+' '+this.alluserData.Family_Name);
       },
       err => {
-        console.log(err);
+        //console.log(err);
       }
     );
   }
@@ -77,10 +77,10 @@ export class DashboardComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.contactsData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.filteredData);
+        //console.log(this.dataSource.filteredData);
       },
       err => {
-        console.log(err);
+        //console.log(err);
       }
     );
   }

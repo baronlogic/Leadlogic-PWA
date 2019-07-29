@@ -20,7 +20,9 @@ export class DeviceScansService {
 
   constructor(private http: HttpClient) { }
 
-  saveScanRecord(){}
+  saveScanRecord(clientId: string, projectId: string, scanRecord: any){
+    return this.http.post(API_URL+clientId+'-'+projectId+'-2-0/'+ENDPOINT_NAME, scanRecord, httpOptions);
+  }
 
   saveNotesForAPerson(){}
 

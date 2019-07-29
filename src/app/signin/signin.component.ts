@@ -62,7 +62,7 @@ export class SigninComponent implements OnInit {
     .subscribe(
       res => {
         this.bSignIn = false;
-        console.log(res);
+        //console.log(res);
         this.auxRes = res;
         if(this.auxRes.type == 'error'){
           this.openSnackBar(this.auxRes.message);
@@ -80,7 +80,7 @@ export class SigninComponent implements OnInit {
       },
       err => {
         this.bSignIn = false;
-        console.log(err);
+        //console.log(err);
       }
     );
   }

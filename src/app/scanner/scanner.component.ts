@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
@@ -58,7 +57,6 @@ export class ScannerComponent implements OnInit {
 
   reloadScanner(){
     this.scannerEnabled = true;
-    this.currentDevice = this.availableDevices[0];
     this.bScanner = false;
     this.bCameras = false;
     this.bPersonId = false;
@@ -94,10 +92,6 @@ export class ScannerComponent implements OnInit {
   onDeviceSelectChange(selected: string) {
     const device = this.availableDevices.find(x => x.deviceId === selected);
     this.currentDevice = device || null;
-  }
-
-  camerasFoundHandler($event){
-    console.log($event);
   }
 
   scanSuccessHandler($event){

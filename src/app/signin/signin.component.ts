@@ -80,7 +80,8 @@ export class SigninComponent implements OnInit {
       },
       err => {
         this.bSignIn = false;
-        //console.log(err);
+        //console.log(err.message);
+        this.openSnackBar(err.message);
       }
     );
   }

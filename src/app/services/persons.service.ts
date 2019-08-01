@@ -20,8 +20,8 @@ export class PersonsService {
 
   constructor(private http: HttpClient) { }
 
-  validateUserCredentials(user: any){
-    return this.http.post(API_URL+'NONE-NONE-2-/'+ENDPOINT_NAME+'/login/Type/pid', user, httpOptions);
+  validateUserCredentials(user: any){                           /*login/Type/pid*/
+    return this.http.post(API_URL+'NONE-NONE-2-/'+ENDPOINT_NAME+'/login/', user, httpOptions);
   }
 
   getSpecificPersonRecord(clientId: string, projectId: string, personId: string){

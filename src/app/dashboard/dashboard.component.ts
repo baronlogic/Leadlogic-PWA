@@ -65,6 +65,7 @@ export class DashboardComponent implements OnInit {
       },
       err => {
         //console.log(err);
+        this.openSnackBar(err.message);
       }
     );
   }
@@ -81,6 +82,7 @@ export class DashboardComponent implements OnInit {
       },
       err => {
         //console.log(err);
+        this.openSnackBar(err.message);
       }
     );
   }

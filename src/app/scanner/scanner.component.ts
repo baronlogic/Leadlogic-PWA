@@ -27,6 +27,7 @@ export class ScannerComponent implements OnInit {
 
   bPersonId = false;
   personId: string;
+  personScanned: any;
 
   user: any;
 
@@ -121,8 +122,7 @@ export class ScannerComponent implements OnInit {
       res => {
         //console.log(res);
         this.openSnackBar("Person id scanned successfully!");
-        this.bPersonId = true;
-        this.bLoading = false;
+        this.getScannedPersonData();
       },
       err => {
         //console.log(err);
@@ -180,4 +180,22 @@ export class ScannerComponent implements OnInit {
       this.getUserData(this.user.clientId, this.user.projectId, this.personId);
     }
   }
+
+  getScannedPersonData(){
+    this.personsService.getSpecificPersonRecord(this.user.clientId, this.user.projectId, this.personId)
+    .subscribe(
+      res => {
+        console.log(res);
+        this.personScanned = res;
+        this.bPersonId = true;
+        this.bLoading = false;
+      },
+      err => {
+        console.log(err);
+        this.bPersonId = true;
+        this.bLoading = false;
+      }
+    );
+  }
+  
 }

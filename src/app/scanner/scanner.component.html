@@ -18,13 +18,18 @@
 
   <mat-spinner *ngIf="bLoading"></mat-spinner>
 
-  <br>
-  
+  <div *ngIf="personScanned">
+    <p *ngIf="bPersonId" class="lead-font text-center"><strong class="bold">Person ID: </strong>{{personId}}</p>
+    <p class="lead-font text-center"><strong class="bold">Person ID: </strong>{{personScanned.First_Name}}</p>
+    <p class="lead-font text-center"><strong class="bold">First Name: </strong>{{personScanned.Family_Name}}</p>
+    <p class="lead-font text-center"><strong class="bold">Family Name: </strong>{{personScanned.Company}}</p>
+    <p class="lead-font text-center"><strong class="bold">Company: </strong>{{personScanned.Job_Title}}</p>
+    <p class="lead-font text-center"><strong class="bold">Job Title: </strong>{{personScanned.Email}}</p>
+    <p class="lead-font text-center"><strong class="bold">Email: </strong>{{personScanned.Mobile}}</p>
+  </div>
+
   <button *ngIf="!scannerEnabled" (click)="reloadScanner()" class="leadlogic-btn" mat-raised-button>
     <span class="btn-text">SCAN AGAIN</span>
   </button>
 
-  <br>
-  
-  <span *ngIf="bPersonId" class="leadlogic-title text-center"><strong class="bold">Person ID: </strong>{{personId}}</span>
 </div>

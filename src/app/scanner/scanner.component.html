@@ -18,37 +18,39 @@
 
   <mat-spinner *ngIf="bLoading"></mat-spinner>
 
-  <div *ngIf="personScanned" class="text-center">
-      <table class="lead-font text-center text-orange">
-          <tr>
-            <th>Person ID</th>
-            <th>{{personId}}</th>
-          </tr>
-          <tr>
-            <td>First Name</td>
-            <td>{{personScanned.First_Name}}</td>
-          </tr>
-          <tr>
-            <td>Family Name</td>
-            <td>{{personScanned.Family_Name}}</td>
-          </tr>
-          <tr>
-            <td>Company</td>
-            <td>{{personScanned.Company}}</td>
-          </tr>
-          <tr>
-            <td>Job Title</td>
-            <td>{{personScanned.Job_Title}}</td>
-          </tr>
-          <tr>
-            <td>Email</td>
-            <td>{{personScanned.Email}}</td>
-          </tr>
-          <tr>
-            <td>Mobile</td>
-            <td>{{personScanned.Mobile}}</td>
-          </tr>
-        </table>
+  <div *ngIf="personScanned" class="text-center width-100">
+      <div style="overflow-x:auto;">
+          <table class="lead-font text-center text-orange">
+              <tr>
+                <th>Person ID</th>
+                <th>{{personId}}</th>
+              </tr>
+              <tr>
+                <td>First Name</td>
+                <td>{{personScanned.First_Name}}</td>
+              </tr>
+              <tr>
+                <td>Family Name</td>
+                <td>{{personScanned.Family_Name}}</td>
+              </tr>
+              <tr>
+                <td>Company</td>
+                <td>{{personScanned.Company}}</td>
+              </tr>
+              <tr>
+                <td>Job Title</td>
+                <td>{{personScanned.Job_Title}}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>{{personScanned.Email}}</td>
+              </tr>
+              <tr>
+                <td>Mobile</td>
+                <td>{{personScanned.Mobile}}</td>
+              </tr>
+            </table>
+      </div>
         <br>
     <form [formGroup]="notesForm" (ngSubmit)="saveNotes()">
       <mat-form-field class="lead-font text-orange" appearance="outline">

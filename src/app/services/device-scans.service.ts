@@ -24,7 +24,9 @@ export class DeviceScansService {
     return this.http.post(API_URL+clientId+'-'+projectId+'-2-0/'+ENDPOINT_NAME, scanRecord, httpOptions);
   }
 
-  saveNotesForAPerson(){}
+  saveNotesForAPerson(clientId: string, projectId: string, notes: any){
+    return this.http.post(API_URL+clientId+'-'+projectId+'-2-0/DeviceScanNotes', notes, httpOptions);
+  }
 
   getAllScans(clientId: string, projectId: string, personId: string){
     return this.http.get(API_URL+clientId+'-'+projectId+'-2-0/'+ENDPOINT_NAME+'/'+personId, httpOptions);

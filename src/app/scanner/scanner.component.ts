@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 
@@ -31,9 +32,12 @@ export class ScannerComponent implements OnInit {
 
   user: any;
 
+  notesForm: FormGroup;
+
   constructor(
     private router: Router,
     public snackBar: MatSnackBar,
+    private formBuilder: FormBuilder,
     private personsService: PersonsService,
     private devicesScanService: DeviceScansService
   ) 
@@ -45,7 +49,9 @@ export class ScannerComponent implements OnInit {
       return;
     }
     this.user = JSON.parse(localStorage.getItem('userLogged'));
-    
+    this.notesForm = this.formBuilder.group({
+      Notes: [''],
+    });
   }
 
   openSnackBar(message: string){
@@ -194,6 +200,28 @@ export class ScannerComponent implements OnInit {
         console.log(err);
         this.bPersonId = true;
         this.bLoading = false;
+      }
+    );
+  }
+
+  saveNotes(){
+    let formData = new FormData();
+    formData.append('Person_Id', this.personId);
+    formData.append('Notes', this.notesForm.get('Notes').value);
+    formData.append('Device_Id', this.user.personId);
+    this.devicesScanService.saveNotesForAPerson(this.user.clientId, this.user.projectId, formData)
+    .subscribe(
+      res => {
+        console.log(res);
+        this.openSnackBar("Notes saved successfully!");
+        this.reloadScanner();
+        this.personScanned = false;
+      },
+      err => {
+        console.log(err);
+        this.openSnackBar("Something went wrong!");
+        this.reloadScanner();
+        this.personScanned = false;
       }
     );
   }

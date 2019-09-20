@@ -18,18 +18,46 @@
 
   <mat-spinner *ngIf="bLoading"></mat-spinner>
 
-  <div *ngIf="personScanned">
-    <p *ngIf="bPersonId" class="lead-font text-center"><strong class="bold">Person ID: </strong>{{personId}}</p>
-    <p class="lead-font text-center text-orange"><strong class="bold">Person ID: </strong>{{personScanned.First_Name}}</p>
-    <p class="lead-font text-center text-orange"><strong class="bold">First Name: </strong>{{personScanned.Family_Name}}</p>
-    <p class="lead-font text-center text-orange"><strong class="bold">Family Name: </strong>{{personScanned.Company}}</p>
-    <p class="lead-font text-center text-orange"><strong class="bold">Company: </strong>{{personScanned.Job_Title}}</p>
-    <p class="lead-font text-center text-orange"><strong class="bold">Job Title: </strong>{{personScanned.Email}}</p>
-    <p class="lead-font text-center text-orange"><strong class="bold">Email: </strong>{{personScanned.Mobile}}</p>
+  <div *ngIf="personScanned" class="text-center">
+      <table class="lead-font text-center text-orange">
+          <tr>
+            <th>Person ID</th>
+            <th>{{personId}}</th>
+          </tr>
+          <tr>
+            <td>First Name</td>
+            <td>{{personScanned.First_Name}}</td>
+          </tr>
+          <tr>
+            <td>Family Name</td>
+            <td>{{personScanned.Family_Name}}</td>
+          </tr>
+          <tr>
+            <td>Company</td>
+            <td>{{personScanned.Company}}</td>
+          </tr>
+          <tr>
+            <td>Job Title</td>
+            <td>{{personScanned.Job_Title}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{personScanned.Email}}</td>
+          </tr>
+          <tr>
+            <td>Mobile</td>
+            <td>{{personScanned.Mobile}}</td>
+          </tr>
+        </table>
+        <br>
+    <form [formGroup]="notesForm" (ngSubmit)="saveNotes()">
+      <mat-form-field class="lead-font text-orange" appearance="outline">
+        <textarea formControlName="Notes" class="form-control" matInput placeholder="Enter your notes..."></textarea>
+      </mat-form-field>
+    </form>
   </div>
-
-  <button *ngIf="!scannerEnabled" (click)="reloadScanner()" class="leadlogic-btn" mat-raised-button>
-    <span class="btn-text">SCAN AGAIN</span>
+  <button type="submit" *ngIf="!scannerEnabled && !bLoading" (click)="saveNotes()" class="leadlogic-btn" mat-raised-button>
+    <span class="btn-text">SAVE</span>
   </button>
 
 </div>

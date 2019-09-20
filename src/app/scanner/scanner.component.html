@@ -1,7 +1,7 @@
 <div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="center center" >
   <app-navbar></app-navbar>
 
-  <mat-form-field [hidden]="scannerEnabled" *ngIf="!bCameras" class="width-100 text-center lead-font bold" appearance="outline">
+  <mat-form-field *ngIf="scannerEnabled" class="width-100 text-center lead-font bold" appearance="outline">
     <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
       <option value="" [selected]="!currentDevice">No Device Selected</option>
       <option *ngFor="let device of availableDevices" [value]="device.deviceId"
@@ -20,8 +20,8 @@
 
   <br>
   
-  <button *ngIf="bScanner" (click)="reloadScanner()" class="leadlogic-btn" mat-raised-button>
-    <span class="btn-login-text">SCAN AGAIN</span>
+  <button *ngIf="!scannerEnabled" (click)="reloadScanner()" class="leadlogic-btn" mat-raised-button>
+    <span class="btn-text">SCAN AGAIN</span>
   </button>
 
   <br>

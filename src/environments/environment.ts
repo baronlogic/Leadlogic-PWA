@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://devapi.shocklogic.com/v1.0/'
+  apiUrl: 'https://api.shocklogic.com/v1.0/'
 };
 
 /*

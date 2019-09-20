@@ -79,6 +79,7 @@ export class DashboardComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         //console.log(this.dataSource.filteredData);
+        //console.log(this.contactsData);
       },
       err => {
         //console.log(err);

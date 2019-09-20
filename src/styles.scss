@@ -5,8 +5,9 @@ $leadlogic-orange: #FD814C;
 $leadlogic-dark: #222327;
 
 body {
-    background-color: #222327;
-    color: #fff;
+  background-color: #222327;
+  color: #fff;
+
 }
 
 .spacer {
@@ -60,6 +61,12 @@ app-navbar{
   font-size: 16px;
   font-family: $leadlogic-font;
   font-weight: 900;
+}
+
+.btn-text{
+  font-size: 14px;
+  font-family: $leadlogic-font;
+  font-weight: 800;
 }
 
 .slide-in-fwd-center {

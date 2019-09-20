@@ -1,7 +1,7 @@
 <div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="center center" >
   <app-navbar></app-navbar>
   <mat-progress-bar *ngIf="!this.dataSource" mode="indeterminate"></mat-progress-bar>
-  <div class="width-100 text-center" [hidden]="!this.dataSource">
+  <div class="width-100 text-center" [hidden]="!this.dataSource || this.contactsData?.length == 0">
     <mat-form-field appearance="outline">
       <mat-label>Search</mat-label>
       <input matInput (keyup)="applyFilter($event.target.value)">
@@ -36,4 +36,14 @@
     </table>
     <mat-paginator class="lead-font" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   </div>
+  <div class="text-center mt-150" *ngIf="this.contactsData?.length == 0">
+    <span class="leadlogic-title">You have no scans available yet</span>
+    <br>
+    <br>
+    <br>
+    <button class="leadlogic-btn" routerLink="/scanner" mat-raised-button>
+      <span class="btn-text">START SCANNING</span>
+    </button>
+  </div>
+  
 </div>

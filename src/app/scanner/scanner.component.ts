@@ -114,6 +114,7 @@ export class ScannerComponent implements OnInit {
     formData.append('Device_Id', this.user.personId);
     formData.append('Person_Id', personId);
     formData.append('Scan_Result', 'VALID');
+    formData.append('Misc_Data', 'Lead Retrieval');
     formData.append('Last_Scanned', this.getTimeFormat());
     this.devicesScanService.saveScanRecord(this.user.clientId, this.user.projectId, formData)
     .subscribe(

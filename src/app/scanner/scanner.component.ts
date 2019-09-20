@@ -19,9 +19,10 @@ export class ScannerComponent implements OnInit {
   currentDevice: MediaDeviceInfo = null;
   hasDevices: boolean;
 
+  auxDevice: any;
+
   scannerEnabled = true;
-  bScanner = false;
-  bCameras = false;
+
   bLoading = false;
 
   bPersonId = false;
@@ -58,9 +59,8 @@ export class ScannerComponent implements OnInit {
 
   reloadScanner(){
     this.scannerEnabled = true;
-    this.bScanner = false;
-    this.bCameras = false;
     this.bPersonId = false;
+    this.currentDevice = this.auxDevice;
   }
 
   getTimeFormat(){
@@ -121,14 +121,12 @@ export class ScannerComponent implements OnInit {
         //console.log(res);
         this.openSnackBar("Person id scanned successfully!");
         this.bPersonId = true;
-        this.bScanner = true;
         this.bLoading = false;
       },
       err => {
         //console.log(err);
         this.openSnackBar("Something went wrong!");
         this.bPersonId = true;
-        this.bScanner = true;
         this.bLoading = false;
       }
     );
@@ -141,7 +139,6 @@ export class ScannerComponent implements OnInit {
         //console.log(res);
         if(Array.isArray(res)){
           this.openSnackBar("The person id is not valid!");
-          this.bScanner = true;
           this.bLoading = false;
           return;
         }
@@ -168,13 +165,12 @@ export class ScannerComponent implements OnInit {
 
   scanSuccessHandler($event){
     //console.log($event);
+    this.auxDevice = this.currentDevice;
     this.bLoading = true;
-    this.bCameras = true;
     this.scannerEnabled = false;
     let isnum = /^\d+$/.test($event);
     if($event.split(' ').length != 1 || !isnum || $event.length != 7){
       this.openSnackBar("The scanned code does not contain a person id!");
-      this.bScanner = true;
       this.bLoading = false;
       return;
     }

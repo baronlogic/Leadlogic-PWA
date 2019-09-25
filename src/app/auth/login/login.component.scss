@@ -1,0 +1,9 @@
+$shocklogic-font: 'Montserrat', sans-serif;
+
+.sign-in-title{ font-size: 36px; margin-bottom: 10px; }
+
+:host ::ng-deep .mat-form-field-wrapper{ padding-bottom: 0; }
+
+.width-login-btn{ margin-top: 20px; width: 250px; height: 45px; text-align: -webkit-center; }
+
+.btn-login-text{ font-size: 16px; font-family: $shocklogic-font; font-weight: 900; }

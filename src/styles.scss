@@ -1,104 +1,101 @@
+
+/*// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$leadlogic-primary: mat-palette($mat-indigo);
+$leadlogic-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$leadlogic-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$leadlogic-theme: mat-light-theme($leadlogic-primary, $leadlogic-accent, $leadlogic-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($leadlogic-theme);*/
+
 /* You can add global styles to this file, and also import other style files */
 
-$leadlogic-font: 'Montserrat', sans-serif;
-$leadlogic-orange: #FD814C;
-$leadlogic-dark: #222327;
+$shocklogic-font: 'Montserrat', sans-serif;
+$shocklogic-orange: #FD814C;
+$shocklogic-dark: #222327;
+$shocklogic-light: whitesmoke;
 
 body {
-  background-color: #222327;
-  color: #fff;
-
+    height: 100%;
+    box-sizing: border-box;
+    background-color: $shocklogic-dark;
+    color: $shocklogic-orange;
+    font-family: $shocklogic-font;
+    margin: 0px;
 }
-
-.spacer {
-  flex: 1 1 auto;
-}
-
-app-navbar{
-  width: 100%;
-}
-
-.width-100{
-  width: 100%;
-}
-
-.text-center{
-  text-align: center;
-}
-
-.bold{
-  font-weight: 900;
-}
-
-.lead-font{
-  font-family: $leadlogic-font;
-}
-
-.text-orange{
-  color: $leadlogic-orange;
-}
-
-.leadlogic-title{
-  color: $leadlogic-orange;
-  font-family: $leadlogic-font;
-  font-size: 24px;
-  margin-bottom: 15px;
-  margin-top: 15px;
-}
-
-.mat-snack-bar-container{
-  background-color: $leadlogic-dark;
-  color: $leadlogic-orange;
   
+html { height: 100%; box-sizing: border-box; margin: 0; }
+
+.header{ flex: 0 0 auto; }
+.content{ flex: 1 1 auto; overflow-y: auto; }
+.footer{ flex: 0 0 auto; }
+
+mat-form-field.mat-form-field {
+    font-size: 14px;
+    font-family: $shocklogic-font;
+    width: 250px;
+    color: $shocklogic-light;
 }
 
-.mat-simple-snackbar, .mat-button-wrapper{
-  font-family: $leadlogic-font;
-  font-size: smaller;
-}
+.mat-snack-bar-container{ background-color: $shocklogic-dark; color: $shocklogic-orange; }
 
-.leadlogic-btn{
-  width: 204px;
-  height: 45PX;
-  background-color: $leadlogic-orange;
-  text-align: -webkit-center;
-  font-size: 16px;
-  font-family: $leadlogic-font;
-  font-weight: 900;
-}
+.mat-simple-snackbar, .mat-button-wrapper{ font-family: $shocklogic-font; font-size: smaller; }
 
-.btn-text{
-  font-size: 14px;
-  font-family: $leadlogic-font;
-  font-weight: 800;
-}
+mat-toolbar{ color: $shocklogic-orange !important; font-family: $shocklogic-font !important; }
+
+.header mat-toolbar{ box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2); margin-bottom: 2px !important; }
+
+.width-100{ width: 100%; }
+
+.spacer { flex: 1 1 auto; }
 
 .slide-in-fwd-center {
 	-webkit-animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 }
 
- @-webkit-keyframes slide-in-fwd-center {
+@-webkit-keyframes slide-in-fwd-center {
     0% {
-      -webkit-transform: translateZ(-1400px);
-              transform: translateZ(-1400px);
-      opacity: 0;
+        -webkit-transform: translateZ(-1400px);
+        transform: translateZ(-1400px);
+        opacity: 0;
     }
+
     100% {
-      -webkit-transform: translateZ(0);
-              transform: translateZ(0);
-      opacity: 1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
     }
-  }
-  @keyframes slide-in-fwd-center {
+}
+
+@keyframes slide-in-fwd-center {
     0% {
-      -webkit-transform: translateZ(-1400px);
-              transform: translateZ(-1400px);
-      opacity: 0;
+        -webkit-transform: translateZ(-1400px);
+        transform: translateZ(-1400px);
+        opacity: 0;
     }
+
     100% {
-      -webkit-transform: translateZ(0);
-              transform: translateZ(0);
-      opacity: 1;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
     }
   }

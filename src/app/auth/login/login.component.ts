@@ -1,27 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { Router } from '@angular/router';
-
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { PersonsService } from '../services/persons.service';
+import { PersonsService } from 'src/app/core/services/persons.service';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class SigninComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
   user: any;
-
-  auxRes: any;
-
   signInForm: FormGroup;
-
   hidePassword = true;
-
   bSignIn = false;
 
   constructor(
@@ -29,13 +21,18 @@ export class SigninComponent implements OnInit {
     public snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private personsService: PersonsService
-  ) 
-  { }
+  ){}
 
   ngOnInit() {
-    if(localStorage.getItem('userLogged')){
+    //checkLeadLogged
+    if(localStorage.getItem('leadLogged')){
       this.goToDashboard();
+      return;
     }
+    this.InstantiateForm();
+  }
+
+  InstantiateForm(){
     this.signInForm = this.formBuilder.group({
       Identifier: ['', Validators.required],
       Password: ['', Validators.required]
@@ -44,12 +41,12 @@ export class SigninComponent implements OnInit {
 
   openSnackBar(message: string){
     this.snackBar.open(message, 'Close', {
-      duration: 3000,
+      duration: 30000,
     });
   }
 
   goToDashboard() {
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['pages/dashboard']);
   }
 
   handleSignIn(){
@@ -63,18 +60,18 @@ export class SigninComponent implements OnInit {
       res => {
         this.bSignIn = false;
         //console.log(res);
-        this.auxRes = res;
-        if(this.auxRes.type == 'error'){
-          this.openSnackBar(this.auxRes.message);
+      let auxRes: any = res;
+        if(auxRes.type == 'error'){
+          this.openSnackBar(auxRes.message);
           return;
         }
-        else if(this.auxRes.type == 'success'){
+        else if(auxRes.type == 'success'){
           let auxUser = {
-            personId: this.auxRes.person_id,
-            clientId: this.auxRes.client_id,
-            projectId: this.auxRes.project_id
+            personId: auxRes.person_id,
+            clientId: auxRes.client_id,
+            projectId: auxRes.project_id
           }
-          localStorage.setItem('userLogged', JSON.stringify(auxUser));
+          localStorage.setItem('leadLogged', JSON.stringify(auxUser));
           this.goToDashboard();
         }
       },
@@ -85,5 +82,5 @@ export class SigninComponent implements OnInit {
       }
     );
   }
-
+ 
 }

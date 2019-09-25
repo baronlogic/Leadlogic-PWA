@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PersonsService } from '../../core/services/persons.service';
+import { DeviceScansService } from '../../core/services/device-scans.service';
 
 export interface PeriodicElement {
   name: string;
@@ -105,13 +112,79 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class DashboardComponent implements OnInit {
 
-  dataSource = ELEMENT_DATA;
+  user: any;
+  alluserData: any;
+  contactsData: any;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  dataSource: any;
   columnsToDisplay = ['Family Name', 'First Name', 'Company'];
   expandedElement: PeriodicElement | null;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    public snackBar: MatSnackBar,
+    private personsService: PersonsService,
+    private deviceScansService: DeviceScansService
+  ) { }
 
   ngOnInit() {
+    if(!localStorage.getItem('leadLogged')){
+      this.goToLogin();
+      return;
+    }
+    this.user = JSON.parse(localStorage.getItem('userLogged'));
+    this.getUserData(this.user.clientId, this.user.projectId, this.user.personId);
+    this.getTheContacts(this.user.clientId, this.user.projectId, this.user.personId);
+  }
+
+  openSnackBar(message: string){
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+    });
+  }
+
+  goToLogin(){
+    this.router.navigate(['']);
+  }
+
+  getUserData(clientId: string, projectId: string, personId: string){
+    this.personsService.getSpecificPersonRecord(clientId, projectId, personId)
+    .subscribe(
+      res => {
+        this.alluserData = res;
+        //console.log(this.alluserData);
+        this.openSnackBar('Welcome '+this.alluserData.First_Name+' '+this.alluserData.Family_Name);
+      },
+      err => {
+        //console.log(err);
+        this.openSnackBar(err.message);
+      }
+    );
+  }
+
+  getTheContacts(clientId: string, projectId: string, personId: string){
+    this.deviceScansService.getAllScans(clientId, projectId, personId)
+    .subscribe(
+      res => {
+        this.contactsData = res;
+        this.dataSource = new MatTableDataSource(this.contactsData);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        //console.log(this.dataSource.filteredData);
+        //console.log(this.contactsData);
+      },
+      err => {
+        //console.log(err);
+        this.openSnackBar(err.message);
+      }
+    );
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

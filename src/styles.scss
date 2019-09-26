@@ -43,6 +43,10 @@ mat-toolbar{ color: $shocklogic-orange !important; font-family: $shocklogic-font
 
 ngx-bottom-nav{ background: #212121; }
 
+.mb-20{ margin-bottom: 20px; }
+
+:host ::ng-deep td.mat-cell { padding-left: 0px; }
+
 .slide-in-fwd-center {
 	-webkit-animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;

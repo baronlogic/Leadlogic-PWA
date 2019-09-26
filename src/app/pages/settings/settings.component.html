@@ -1,16 +1,17 @@
-<div fxFill fxLayout="column" fxLayoutAlign="space-between center">
-    <div class="width-100 header">
-        <mat-toolbar>
-            <span class="spacer"></span>
-            <span class="sign-in-title text-center"><strong class="bold">Lead</strong>logic</span>
-            <span class="spacer"></span>
-        </mat-toolbar>
-        <mat-progress-bar *ngIf="false" mode="indeterminate"></mat-progress-bar>
-    </div>
-    <div class="content width-100 text-center slide-in-fwd-center">
-
-    </div>
-    <div class="footer width-100">
-        <ngx-bottom-nav [items]="items"></ngx-bottom-nav>
-    </div>
-<div>
+<mat-list class="width-100 slide-in-fwd-center">
+    <mat-list-item>
+        <button class="width-100 bg-dark font-larger" mat-button>About Shocklogic</button>
+    </mat-list-item>
+    <mat-list-item>
+        <button class="width-100 bg-dark font-larger" mat-button>Account Info</button>
+    </mat-list-item>
+    <!--<mat-list-item>
+        <button class="width-100 bg-dark font-larger" mat-button>Download Leads</button>
+    </mat-list-item>-->
+    <br>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-list-item>
+        <button class="width-100 bg-dark font-larger" mat-button>Sign Out</button>
+    </mat-list-item>
+</mat-list>

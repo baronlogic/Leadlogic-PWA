@@ -43,6 +43,8 @@ mat-toolbar{ color: $shocklogic-orange !important; font-family: $shocklogic-font
 
 ngx-bottom-nav{ background: #212121; }
 
+ngx-bottom-nav-button:not(.active) { --ngx-bottom-nav-button-color: whitesmoke; }
+
 .mb-20{ margin-bottom: 20px; }
 
 :host ::ng-deep td.mat-cell { padding-left: 0px; }

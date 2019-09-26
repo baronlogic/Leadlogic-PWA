@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BottomNavItem} from 'ngx-bottom-nav';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -8,15 +8,17 @@ import {BottomNavItem} from 'ngx-bottom-nav';
 })
 export class SettingsComponent implements OnInit {
 
-  items: BottomNavItem[] = [
-    {icon: 'home', label: 'Home', routerLink: ''},
-    {icon: 'center_focus_weak', label: 'Scan', routerLink: 'scan'},
-    {icon: 'settings', label: 'Settings', routerLink: 'settings'},
-  ];
-
-  constructor() { }
+  constructor(
+    private router: Router
+  ) 
+  { }
 
   ngOnInit() {
+  }
+
+  signOut(){
+    localStorage.clear();
+    this.router.navigate(['']);
   }
 
 }

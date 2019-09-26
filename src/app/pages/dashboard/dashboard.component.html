@@ -1,10 +1,62 @@
-<div fxFill fxLayout="column" fxLayoutAlign="space-between center">
-    <div class="width-100 header">
+<div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="none center" *ngIf="this.contactsData?.length > 0">
+    <div class="header width-100" fxLayout="column" fxLayoutAlign="none center">
+        <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event.target.value)">
+        </mat-form-field>
         <mat-toolbar>
             <span class="spacer"></span>
-            <span class="sign-in-title text-center"><strong class="bold">Lead</strong>logic</span>
+            My Scans
             <span class="spacer"></span>
         </mat-toolbar>
-        <mat-progress-bar *ngIf="false" mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="content width-100">
+        <table mat-table [dataSource]="this.dataSource" multiTemplateDataRows class="mat-elevation-z8">
+            <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+            </ng-container>
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                    <div fxLayoutAlign="center center" class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div class="mb-20" style="overflow-x:auto;">
+                            <table>
+                                <tr *ngIf="element.First_Name">
+                                    <td class="t">First Name</td>
+                                    <td class="t">{{element.First_Name}}</td>
+                                </tr>
+                                <tr *ngIf="element.Family_Name">
+                                    <td class="t">Family Name</td>
+                                    <td class="t">{{element.Family_Name}}</td>
+                                </tr>
+                                <tr *ngIf="element.Company">
+                                    <td class="t">Company</td>
+                                    <td class="t">{{element.Company}}</td>
+                                </tr>
+                                <tr *ngIf="element.Job_Title">
+                                    <td class="t">Job Title</td>
+                                    <td class="t">{{element.Job_Title}}</td>
+                                </tr>
+                                <tr *ngIf="element.Email">
+                                    <td class="t">Email</td>
+                                    <td class="t">{{element.Email}}</td>
+                                </tr>
+                                <tr *ngIf="element.Mobile">
+                                    <td class="t">Mobile</td>
+                                    <td class="t">{{element.Mobile}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" 
+                [class.example-expanded-row]="expandedElement === element" 
+                (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
     </div>
 <div>

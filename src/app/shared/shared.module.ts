@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
-
-
+import {BottomNavModule} from 'ngx-bottom-nav';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 @NgModule({
   declarations: [],
@@ -12,12 +12,16 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     CommonModule,
     ReactiveFormsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    BottomNavModule,
+    ZXingScannerModule
   ],
   exports: [
     ReactiveFormsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    BottomNavModule,
+    ZXingScannerModule
   ]
 })
 export class SharedModule { }

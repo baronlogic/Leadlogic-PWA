@@ -1,18 +1,18 @@
-<div fxFill fxLayout="column" fxLayoutAlign="none center">
-    <div class="header">
+<div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="none center" *ngIf="this.contactsData?.length > 0">
+    <div class="header width-100" fxLayout="column" fxLayoutAlign="none center">
         <mat-form-field appearance="outline">
             <mat-label>Search</mat-label>
-            <input matInput>
+            <input matInput (keyup)="applyFilter($event.target.value)">
         </mat-form-field>
-    </div>
-    <div class="content">
         <mat-toolbar>
             <span class="spacer"></span>
             My Scans
             <span class="spacer"></span>
         </mat-toolbar>
-        <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
-            <ng-container (click)="console.log('hola')" matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    </div>
+    <div class="content width-100">
+        <table mat-table [dataSource]="this.dataSource" multiTemplateDataRows class="mat-elevation-z8">
+            <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
                 <th mat-header-cell *matHeaderCellDef> {{column}} </th>
                 <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
             </ng-container>

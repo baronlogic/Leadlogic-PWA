@@ -1,0 +1,44 @@
+$shocklogic-font: 'Montserrat', sans-serif;
+$shocklogic-orange: #FD814C;
+$shocklogic-dark: #222327;
+:host ::ng-deep .mat-form-field-wrapper { padding-bottom: 0; }
+table { width: 100%; font-family: $shocklogic-font; background: #212121; }
+tr.example-detail-row { height: 0; }
+tr.example-element-row:not(.example-expanded-row):hover { background: $shocklogic-dark; }
+tr.example-element-row:not(.example-expanded-row):active { background: #000; }
+.example-element-row td { border-bottom-width: 0; }
+.example-element-detail { overflow: hidden; display: flex; }
+  
+  .example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
+
+  td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type, th.mat-header-cell:last-of-type {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.t {
+  border: 1px solid $shocklogic-orange;
+  text-align: left;
+  padding: 8px;
+}

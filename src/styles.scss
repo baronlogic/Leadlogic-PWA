@@ -1,1 +1,82 @@
 /* You can add global styles to this file, and also import other style files */
+
+$shocklogic-font: 'Montserrat', sans-serif;
+$shocklogic-orange: #FD814C;
+$shocklogic-dark: #222327;
+$shocklogic-light: whitesmoke;
+
+body {
+    height: 100%;
+    box-sizing: border-box;
+    background-color: $shocklogic-dark;
+    color: $shocklogic-orange;
+    font-family: $shocklogic-font;
+    margin: 0px;
+}
+  
+html { height: 100%; box-sizing: border-box; margin: 0; }
+
+.header{ flex: 0 0 auto; }
+.content{ flex: 1 1 auto; overflow-y: auto; }
+.footer{ flex: 0 0 auto; }
+
+mat-form-field.mat-form-field {
+    font-size: 14px;
+    font-family: $shocklogic-font;
+    width: 250px;
+    color: $shocklogic-light;
+}
+
+.mat-snack-bar-container{ background-color: $shocklogic-dark; color: $shocklogic-orange; }
+
+.mat-simple-snackbar, .mat-button-wrapper{ font-family: $shocklogic-font; font-size: smaller; }
+
+mat-toolbar{ color: $shocklogic-orange !important; font-family: $shocklogic-font !important; }
+
+.header mat-toolbar{ box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2); margin-bottom: 2px !important; }
+
+.width-100{ width: 100%; }
+
+.spacer { flex: 1 1 auto; }
+
+.footer mat-toolbar{ box-shadow: 0px -2px 1px -1px rgba(0, 0, 0, 0.2); margin-top: 2px !important; }
+
+ngx-bottom-nav{ background: #212121; }
+ngx-bottom-nav-button:not(.active) { --ngx-bottom-nav-button-color: whitesmoke; }
+
+.mb-20{ margin-bottom: 20px; }
+
+:host ::ng-deep td.mat-cell { padding-left: 0px; }
+
+.slide-in-fwd-center {
+	-webkit-animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    animation: slide-in-fwd-center 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@-webkit-keyframes slide-in-fwd-center {
+    0% {
+        -webkit-transform: translateZ(-1400px);
+        transform: translateZ(-1400px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in-fwd-center {
+    0% {
+        -webkit-transform: translateZ(-1400px);
+        transform: translateZ(-1400px);
+        opacity: 0;
+    }
+
+    100% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        opacity: 1;
+    }
+  }

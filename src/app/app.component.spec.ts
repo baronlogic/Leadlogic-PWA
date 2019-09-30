@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'leadlogic-pwa'`, () => {
+  it(`should have as title 'leadlogic'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('leadlogic-pwa');
+    expect(app.title).toEqual('leadlogic');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to leadlogic-pwa!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to leadlogic!');
   });
 });

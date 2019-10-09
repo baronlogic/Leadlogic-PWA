@@ -6,11 +6,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScanComponent } from './scan/scan.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PagesComponent } from './pages.component';
+import { LeadDetailsComponent } from './lead-details/lead-details.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, ScanComponent, SettingsComponent, PagesComponent],
+  declarations: [DashboardComponent, ScanComponent, SettingsComponent, PagesComponent, LeadDetailsComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,

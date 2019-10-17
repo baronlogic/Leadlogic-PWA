@@ -89,12 +89,12 @@ export class DashboardComponent implements OnInit {
     )
     .subscribe(
       res => {
-        this.contactsData = res;
+        this.contactsData = [];
         this.dataSource = new MatTableDataSource(this.contactsData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         //console.log(this.dataSource.filteredData);
-        //console.log(this.contactsData);
+        console.log(this.contactsData);
       },
       err => {
         //console.log(err);

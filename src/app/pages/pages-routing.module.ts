@@ -4,7 +4,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScanComponent } from './scan/scan.component';
 import { SettingsComponent } from './settings/settings.component';
-
+import { LeadDetailsComponent } from './lead-details/lead-details.component';
 
 const routes: Routes = [
   { 
@@ -17,8 +17,10 @@ const routes: Routes = [
       { path: "settings", component: SettingsComponent }
     ]
   },
-  
-
+  { 
+    path: "lead-details",
+    component: LeadDetailsComponent
+  },
 ];
 
 @NgModule({

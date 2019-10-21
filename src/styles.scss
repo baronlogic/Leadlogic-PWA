@@ -16,6 +16,8 @@ body {
   
 html { height: 100%; box-sizing: border-box; margin: 0; }
 
+.shocklogic-font{ font-family: $shocklogic-font; }
+
 .header{ flex: 0 0 auto; }
 .content{ flex: 1 1 auto; overflow-y: auto; }
 .footer{ flex: 0 0 auto; }
@@ -44,6 +46,11 @@ mat-toolbar{ color: $shocklogic-orange !important; font-family: $shocklogic-font
 ngx-bottom-nav{ background: #212121; }
 ngx-bottom-nav-button:not(.active) { --ngx-bottom-nav-button-color: whitesmoke; }
 
+.text-center{ text-align: center; }
+
+.ml--15{ margin-left: -15px !important; }
+.mr--15{ margin-right: -15px !important; }
+.mt-20{ margin-top: 20px !important; }
 .mb-20{ margin-bottom: 20px; }
 
 :host ::ng-deep td.mat-cell { padding-left: 0px; }

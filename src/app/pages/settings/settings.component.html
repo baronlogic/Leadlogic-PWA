@@ -6,7 +6,10 @@
         <button class="width-100 bg-dark font-larger" mat-button>Account Info</button>
     </mat-list-item>
     <mat-list-item>
-        <button class="width-100 bg-dark font-larger" mat-button>Download Leads</button>
+        <button (click)="getLeads()" class="width-100 bg-dark font-larger center-spinner-btn" mat-button>
+            <span *ngIf="!bLeads">Download Leads</span>
+            <mat-spinner *ngIf="bLeads" mode="indeterminate" [diameter]="30"></mat-spinner>
+        </button>
     </mat-list-item>
     <br>
     <mat-divider></mat-divider>

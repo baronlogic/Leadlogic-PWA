@@ -89,7 +89,7 @@ export class DashboardComponent implements OnInit {
     )
     .subscribe(
       res => {
-        this.contactsData = [];
+        this.contactsData = res;
         this.dataSource = new MatTableDataSource(this.contactsData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

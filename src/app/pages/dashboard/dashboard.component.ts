@@ -67,7 +67,9 @@ export class DashboardComponent implements OnInit {
       res => {
         this.alluserData = res;
         //console.log(this.alluserData);
-        this.openSnackBar('Welcome '+this.alluserData.First_Name+' '+this.alluserData.Family_Name);
+        if(false){
+          this.openSnackBar('Welcome '+this.alluserData.First_Name+' '+this.alluserData.Family_Name);
+        }
       },
       err => {
         //console.log(err);
@@ -80,8 +82,8 @@ export class DashboardComponent implements OnInit {
     this.deviceScansService.getAllScans(clientId, projectId, personId).pipe(
       map(
         (resp: any) => { 
-          return resp.map(({Family_Name, First_Name, Company, Job_Title, Email, Mobile}) =>
-            ({Family_Name, First_Name, Company, Job_Title, Email, Mobile}));
+          return resp.map(({Person_Id, Family_Name, First_Name, Company, Job_Title, Email, Mobile}) =>
+            ({Person_Id, Family_Name, First_Name, Company, Job_Title, Email, Mobile}));
         }
       )
     )
@@ -91,8 +93,8 @@ export class DashboardComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.contactsData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(this.dataSource.filteredData);
-        //console.log(this.contactsData);
+        //console.log(this.dataSource.filteredData);
+        console.log(this.contactsData);
       },
       err => {
         //console.log(err);
@@ -103,6 +105,24 @@ export class DashboardComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  goToDetails(element){
+    this.deviceScansService.getNotesForAPerson(this.user.clientId, this.user.projectId, element.Person_Id, this.user.personId)
+    .subscribe(
+      res => {
+        //console.log(res);
+        let aux: any = res;
+        element.notes = aux.Notes;
+        localStorage.setItem('leadDetails', JSON.stringify(element));
+        //console.log(element);
+        this.router.navigate(['pages/lead-details']);
+      },
+      err => {
+        //console.log(err);
+        this.openSnackBar(err.message);
+      }
+    );
   }
 
 }

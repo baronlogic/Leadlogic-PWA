@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://api.shocklogic.com/v1.0/'
+  apiUrl: 'https://stagingapi.shocklogic.com/v1.0/'
 };
 
 /*

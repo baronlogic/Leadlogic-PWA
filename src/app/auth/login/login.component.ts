@@ -24,12 +24,12 @@ export class LoginComponent implements OnInit {
   ){}
 
   ngOnInit() {
+    this.InstantiateForm();
     //checkLeadLogged
     if(localStorage.getItem('leadLogged')){
       this.goToDashboard();
       return;
     }
-    this.InstantiateForm();
   }
 
   InstantiateForm(){

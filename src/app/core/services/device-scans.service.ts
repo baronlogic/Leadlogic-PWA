@@ -20,4 +20,8 @@ export class DeviceScansService extends ApiService {
     return this.http.get(this.API_URL+clientId+'-'+projectId+'-2-0/'+ENDPOINT_NAME+'/'+personId, this.httpOptions);
   }
 
+  getNotesForAPerson(clientId: string, projectId: string, personId: string, deviceId: string){
+    return this.http.get(this.API_URL+clientId+'-'+projectId+'-2-0/DeviceScanNotes/'+personId+'/'+deviceId, this.httpOptions);
+  }
+
 }

@@ -65,8 +65,8 @@ export class SettingsComponent implements OnInit {
   this.deviceScansService.getAllScans(this.user.clientId, this.user.projectId, this.user.personId).pipe(
     map(
       (resp: any) => { 
-        return resp.map(({First_Name, Family_Name, Job_Title, Prefix_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}) =>
-          ({First_Name, Family_Name, Job_Title, Prefix_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}));
+        return resp.map(({Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}) =>
+          ({Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}));
       }
     )
   )

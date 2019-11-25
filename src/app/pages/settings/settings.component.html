@@ -1,9 +1,9 @@
 <mat-list class="width-100 slide-in-fwd-center">
     <mat-list-item>
-        <button class="width-100 bg-dark font-larger" mat-button>About Shocklogic</button>
+        <button (click)="goToAbout()" class="width-100 bg-dark font-larger" mat-button>About Shocklogic</button>
     </mat-list-item>
     <mat-list-item>
-        <button class="width-100 bg-dark font-larger" mat-button>Account Info</button>
+        <button (click)="goToAccount()" class="width-100 bg-dark font-larger" mat-button>Account Info</button>
     </mat-list-item>
     <mat-list-item>
         <button (click)="getLeads()" class="width-100 bg-dark font-larger center-spinner-btn" mat-button>

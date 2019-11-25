@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
   openSnackBar(message: string){
     this.snackBar.open(message, 'Close', {
-      duration: 30000,
+      duration: 3000,
     });
   }
 
@@ -54,15 +54,13 @@ export class LoginComponent implements OnInit {
     let formData = new FormData();
     formData.append('Identifier', this.signInForm.get('Identifier').value);
     formData.append('Password', this.signInForm.get('Password').value);
-    //console.log(this.signInForm.value);
     this.personsService.validateUserCredentials(formData)
     .subscribe(
       res => {
         this.bSignIn = false;
-        //console.log(res);
       let auxRes: any = res;
         if(auxRes.type == 'error'){
-          this.openSnackBar(auxRes.message);
+          this.openSnackBar('Invalid User or Password...');
           return;
         }
         else if(auxRes.type == 'success'){
@@ -77,8 +75,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.bSignIn = false;
-        //console.log(err.message);
-        this.openSnackBar(err.message);
+        this.openSnackBar('Something went wrong...');
       }
     );
   }

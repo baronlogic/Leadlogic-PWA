@@ -1,4 +1,4 @@
-<mat-progress-bar *ngIf="!this.contactsData" mode="indeterminate"></mat-progress-bar>
+<mat-progress-bar *ngIf="bLeads" mode="indeterminate"></mat-progress-bar>
 <div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="none center" *ngIf="true">
     <div class="header width-100" fxLayout="column" fxLayoutAlign="none center" *ngIf="this.contactsData?.length > 0">
         <mat-form-field appearance="outline">
@@ -14,11 +14,22 @@
     <div class="content width-100" fxLayout="column" fxLayoutAlign="center center" *ngIf="this.contactsData?.length == 0">
         <span >You don't have leads scanned yet</span>
     </div>
+    <div *ngIf="bError" class="content width-100" fxLayout="column" fxLayoutAlign="center center">
+        <h3>Something went wrong</h3>
+        <h4>There was a problem loading the leads...</h4>
+        <button (click)="loadLeads()" class="try-again-btn" mat-raised-button>
+            <span>TRY AGAIN</span>
+        </button>
+    </div>
     <div class="content width-100" *ngIf="this.contactsData?.length > 0">
         <table mat-table [dataSource]="this.dataSource" multiTemplateDataRows class="mat-elevation-z8">
             <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
                 <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-                <td class="text-justify" mat-cell *matCellDef="let element"> {{element[column]}} </td>
+                <td class="text-justify" mat-cell *matCellDef="let element">
+                    <span *ngIf="element[column]">{{element[column]}}</span>
+                    <span *ngIf="!element[column]">None</span>
+                    
+                </td>
             </ng-container>
             <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
             <ng-container matColumnDef="expandedDetail">
@@ -26,29 +37,35 @@
                     <div fxLayoutAlign="center center" class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                         <div class="mb-20 text-center" style="overflow-x:auto;">
                             <table>
-                                <tr *ngIf="element.First_Name">
+                                <tr>
                                     <td class="t">First Name</td>
-                                    <td class="t">{{element.First_Name}}</td>
+                                    <td *ngIf="element.First_Name" class="t">{{element.First_Name}}</td>
+                                    <td *ngIf="!element.First_Name" class="t">None</td>
                                 </tr>
-                                <tr *ngIf="element.Family_Name">
+                                <tr>
                                     <td class="t">Family Name</td>
-                                    <td class="t">{{element.Family_Name}}</td>
+                                    <td *ngIf="element.Family_Name" class="t">{{element.Family_Name}}</td>
+                                    <td *ngIf="!element.Family_Name" class="t">None</td>
                                 </tr>
-                                <tr *ngIf="element.Company">
+                                <tr>
                                     <td class="t">Company</td>
-                                    <td class="t">{{element.Company}}</td>
+                                    <td *ngIf="element.Company" class="t">{{element.Company}}</td>
+                                    <td *ngIf="!element.Company" class="t">None</td>
                                 </tr>
-                                <tr *ngIf="element.Job_Title">
+                                <tr>
                                     <td class="t">Job Title</td>
-                                    <td class="t">{{element.Job_Title}}</td>
+                                    <td *ngIf="element.Job_Title" class="t">{{element.Job_Title}}</td>
+                                    <td *ngIf="!element.Job_Title" class="t">None</td>
                                 </tr>
-                                <tr *ngIf="element.Email">
+                                <tr>
                                     <td class="t">Email</td>
-                                    <td class="t">{{element.Email}}</td>
+                                    <td *ngIf="element.Email" class="t">{{element.Email}}</td>
+                                    <td *ngIf="!element.Email" class="t">None</td>
                                 </tr>
-                                <tr *ngIf="element.Mobile">
+                                <tr>
                                     <td class="t">Mobile</td>
-                                    <td class="t">{{element.Mobile}}</td>
+                                    <td *ngIf="element.Mobile" class="t">{{element.Mobile}}</td>
+                                    <td *ngIf="!element.Mobile" class="t">None</td>
                                 </tr>
                             </table>
                             <button (click)="goToDetails(element)" class="mt-20" color="primary" mat-raised-button >

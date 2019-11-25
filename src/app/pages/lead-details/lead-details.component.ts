@@ -66,19 +66,16 @@ export class LeadDetailsComponent implements OnInit {
 
    saveNotes(){
     let formData = new FormData();
-    console.log(this.lead);
     formData.append('Person_Id', this.lead.Person_Id);
     formData.append('Notes', this.notesForm.get('Notes').value);
     formData.append('Device_Id', this.user.personId);
     this.devicesScanService.saveNotesForAPerson(this.user.clientId, this.user.projectId, formData)
     .subscribe(
       res => {
-        console.log(res);
         this.openSnackBar("Notes saved successfully!");
         this.isDisabled();
       },
       err => {
-        console.log(err);
         this.openSnackBar("Something went wrong!");
         this.isDisabled();
       }

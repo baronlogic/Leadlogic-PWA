@@ -5,6 +5,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ScanComponent } from './scan/scan.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LeadDetailsComponent } from './lead-details/lead-details.component';
+import { AboutComponent } from './about/about.component';
+import { AccountComponent } from './account/account.component';
 
 const routes: Routes = [
   { 
@@ -21,6 +23,14 @@ const routes: Routes = [
     path: "lead-details",
     component: LeadDetailsComponent
   },
+  { 
+    path: "about", 
+    component: AboutComponent 
+  },
+  { 
+    path: "account", 
+    component: AccountComponent 
+  }
 ];
 
 @NgModule({

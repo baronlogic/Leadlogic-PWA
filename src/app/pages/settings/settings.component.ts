@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ExcelService } from 'src/app/core/services/excel.service';
 import { DeviceScansService } from 'src/app/core/services/device-scans.service';
 import { map } from 'rxjs/operators';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -14,25 +16,10 @@ export class SettingsComponent implements OnInit {
   user: any;
   leads: any;
   bLeads = false;
-
-  data: any = [{
-    eid: 'e101',
-    ename: 'ravi',
-    esal: 1000
-    },{
-    eid: 'e102',
-    ename: 'ram',
-    esal: 2000
-    },{
-    eid: 'e103',
-    ename: 'rajesh',
-    esal: 3000
-    }
-  ];
     
-
   constructor(
     private router: Router,
+    public snackBar: MatSnackBar,
     private excelService: ExcelService,
     private deviceScansService: DeviceScansService
   ) 
@@ -44,11 +31,24 @@ export class SettingsComponent implements OnInit {
       return;
     }
     this.user = JSON.parse(localStorage.getItem('leadLogged'));
-    console.log(this.user);
+  }
+
+  openSnackBar(message: string){
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+    });
   }
 
   goToLogin(){
     this.router.navigate(['']);
+  }
+
+  goToAbout(){
+    this.router.navigate(['pages/about']);
+  }
+
+  goToAccount(){
+    this.router.navigate(['pages/account']);
   }
 
   signOut(){
@@ -58,31 +58,64 @@ export class SettingsComponent implements OnInit {
 
   exportAsXLSX(data):void {
     this.excelService.exportAsExcelFile(data, this.user.clientId);
- }
+    this.openSnackBar('Leads successfully downloaded!');
+  }
 
- getLeads(){
-  this.bLeads = true;
-  this.deviceScansService.getAllScans(this.user.clientId, this.user.projectId, this.user.personId).pipe(
-    map(
-      (resp: any) => { 
-        return resp.map(({First_Name, Family_Name, Job_Title, Prefix_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}) =>
-          ({First_Name, Family_Name, Job_Title, Prefix_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}));
-      }
+  getLeads(){
+    this.bLeads = true;
+    this.deviceScansService.getAllScans(this.user.clientId, this.user.projectId, this.user.personId).pipe(
+      map(
+        (resp: any) => { 
+          return resp.map(({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}) =>
+          ({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}));
+        }
+      )
     )
-  )
-  .subscribe(
-    res => {
-       //console.log(res);
-       this.leads = res;
-       this.exportAsXLSX(this.leads);
-       this.bLeads = false;
-    },
-    err => {
-      console.log(err);
-      this.bLeads = false;
-      //this.openSnackBar(err.message);
+    .subscribe(
+      res => {
+        this.leads = res;
+        if(this.leads.length == 0){
+          this.bLeads = false;
+          this.openSnackBar("You don't have leads scanned yet");
+          return;
+        }
+        this.getLeadsNotes();
+      },
+      err => {
+        this.bLeads = false;
+        this.openSnackBar('Something went wrong...');
+      }
+    );
+  }
+
+  getNotes(element){
+    return this.deviceScansService.getNotesForAPerson(this.user.clientId, this.user.projectId, element.Person_Id, this.user.personId)
+  }
+
+  getLeadsNotes(){
+    let aux = [];
+    for(let i = 0; i < this.leads.length; i++){
+      aux.push(this.getNotes(this.leads[i]));
     }
-  );
-}
+    forkJoin(aux).subscribe(
+      res => {
+        let auxNotes: any = res;
+        for(let i = 0; i < this.leads.length; i++){
+          if(auxNotes[i] != null){
+            this.leads[i].Notes = auxNotes[i].Notes;
+          }
+          else{
+            this.leads[i].Notes = '';
+          }
+        }
+        this.exportAsXLSX(this.leads);
+        this.bLeads = false;
+      },
+      err => {
+        this.bLeads = false;
+        this.openSnackBar('Something went wrong...');
+      }
+    );
+  }
 
 }

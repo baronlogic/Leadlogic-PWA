@@ -30,6 +30,10 @@ export class DashboardComponent implements OnInit {
   bLeads = true;
   //This handles the error response when loading projects
   bError = false;
+  //This handles the mat-spinner of the details button
+  bDetails = false;
+  //The message for the custom error
+  customError: string;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -93,6 +97,7 @@ export class DashboardComponent implements OnInit {
     )
     .subscribe(
       res => {
+        console.log(res)
         this.contactsData = res;
         this.dataSource = new MatTableDataSource(this.contactsData);
         this.dataSource.paginator = this.paginator;
@@ -100,7 +105,9 @@ export class DashboardComponent implements OnInit {
         this.bLeads = false;
       },
       err => {
-        console.log(err)
+        if(err.error.text){
+          this.customError = err.error.text;
+        }
         this.bError = true;
         this.bLeads = false;
       }
@@ -112,6 +119,8 @@ export class DashboardComponent implements OnInit {
   }
 
   goToDetails(element){
+    this.bDetails = true;
+    this.bLeads = true;
     this.deviceScansService.getNotesForAPerson(this.user.clientId, this.user.projectId, element.Person_Id, this.user.personId)
     .subscribe(
       res => {
@@ -122,10 +131,14 @@ export class DashboardComponent implements OnInit {
         else{
           element.notes = '';
         }
+        this.bDetails = false;
+        this.bLeads = false;
         localStorage.setItem('leadDetails', JSON.stringify(element));
         this.router.navigate(['pages/lead-details']);
       },
       err => {
+        this.bDetails = false;
+        this.bLeads = false;
         this.openSnackBar('Something went wrong...');
       }
     );

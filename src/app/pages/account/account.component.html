@@ -26,13 +26,16 @@
                     <th class="text-right">Project: {{ userData.Project_Id}}</th>
                 </tr>
                 <tr>
-                    <td colspan="2">Name: {{ userData.First_Name}} {{ userData.Family_Name}}</td>
+                    <td *ngIf="userData.First_Name && userData.Family_Name" colspan="2">Name: {{ userData.First_Name }} {{ userData.Family_Name }}</td>
+                    <td *ngIf="!userData.First_Name && !userData.Family_Name" colspan="2">Name: None</td>
                 </tr>
                 <tr>
-                    <td colspan="2">Company: {{ userData.Company}}</td>
+                    <td *ngIf="userData.Company" colspan="2">Company: {{ userData.Company }}</td>
+                    <td *ngIf="!userData.Company" colspan="2">Company: None</td>
                 </tr>
                 <tr>
-                    <td colspan="2">Job title: {{ userData.Job_Title}}</td>
+                    <td *ngIf="userData.Job_Title" colspan="2">Job title: {{ userData.Job_Title }}</td>
+                    <td *ngIf="!userData.Job_Title" colspan="2">Job title: None</td>
                 </tr>
             </table>
         </div>

@@ -34,7 +34,6 @@ export class LeadDetailsComponent implements OnInit {
     }
     this.user = JSON.parse(localStorage.getItem('leadLogged'));
     this.lead = JSON.parse(localStorage.getItem('leadDetails'));
-    localStorage.removeItem('leadDetails');
     this.notesForm = this.formBuilder.group({
       Notes: [this.lead.notes],
     });
@@ -52,6 +51,7 @@ export class LeadDetailsComponent implements OnInit {
   }
 
   goToDashboard(){
+    localStorage.removeItem('leadDetails');
     this.router.navigate(['pages']);
   }
 
@@ -72,6 +72,8 @@ export class LeadDetailsComponent implements OnInit {
     this.devicesScanService.saveNotesForAPerson(this.user.clientId, this.user.projectId, formData)
     .subscribe(
       res => {
+        this.lead.Notes = this.notesForm.get('Notes').value;
+        localStorage.setItem('leadDetails', JSON.stringify(this.lead));
         this.openSnackBar("Notes saved successfully!");
         this.isDisabled();
       },

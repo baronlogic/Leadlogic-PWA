@@ -1,6 +1,7 @@
 $shocklogic-font: 'Montserrat', sans-serif;
 $shocklogic-orange: #FD814C;
 $shocklogic-dark: #222327;
+$shocklogic-black: #212121;
 $shocklogic-light: whitesmoke;
 :host ::ng-deep .mat-form-field-wrapper { padding-bottom: 0; }
 table { width: 100%; font-family: $shocklogic-font; background: #212121; }
@@ -47,5 +48,9 @@ tr.example-element-row:not(.example-expanded-row):active { background: #000; }
 .text-justify {
   text-align: justify;
 }
-
+.bg-details { background-color: #222327; }
+.details-table { color: #FD814C; border-collapse: collapse; width: 100%; font-family: $shocklogic-font; font-size: 16px; border: 1px solid $shocklogic-dark; }
+.details-th, .details-td { padding: 8px; font-weight: 500; border-bottom: 1px solid $shocklogic-dark; border: 1px solid $shocklogic-dark; }
+.details-tr:nth-child(even){background-color: #313131 }
+.details-th { border: 1px solid $shocklogic-black; background-color: $shocklogic-black; }
 .try-again-btn{ background-color: $shocklogic-orange; color: $shocklogic-light; }

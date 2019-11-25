@@ -100,6 +100,7 @@ export class DashboardComponent implements OnInit {
         this.bLeads = false;
       },
       err => {
+        console.log(err)
         this.bError = true;
         this.bLeads = false;
       }

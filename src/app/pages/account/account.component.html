@@ -1,0 +1,40 @@
+<div fxFill fxLayout="column" fxLayoutAlign="space-between center">
+    <div class="width-100 header">
+        <mat-toolbar>
+            <button (click)="goToSettings()" class="ml--15" mat-icon-button>
+                <mat-icon>navigate_before</mat-icon>
+            </button>
+            <span class="spacer"></span>
+            <span class="sign-in-title text-center"><strong class="bold">Lead</strong>logic</span>
+            <span class="spacer"></span>
+            <span class="btn-none"></span>
+        </mat-toolbar>
+        <mat-progress-bar *ngIf="bUser" mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="content width-100 text-center slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center">
+        <div *ngIf="bError" class="content width-100" fxLayout="column" fxLayoutAlign="center center">
+            <h3>Something went wrong</h3>
+            <h4>There was a problem loading the account info...</h4>
+            <button (click)="loadInfo()" class="try-again-btn" mat-raised-button>
+                <span>TRY AGAIN</span>
+            </button>
+                </div>
+        <div *ngIf="userData" class="width-80" style="overflow-x:auto;">
+            <table>
+                <tr>
+                    <th class="text-left">Client: {{ userData.Client_Id}}</th>
+                    <th class="text-right">Project: {{ userData.Project_Id}}</th>
+                </tr>
+                <tr>
+                    <td colspan="2">Name: {{ userData.First_Name}} {{ userData.Family_Name}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Company: {{ userData.Company}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Job title: {{ userData.Job_Title}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+<div>

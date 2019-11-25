@@ -1,6 +1,7 @@
 $shocklogic-font: 'Montserrat', sans-serif;
 $shocklogic-orange: #FD814C;
 $shocklogic-dark: #222327;
+$shocklogic-light: whitesmoke;
 :host ::ng-deep .mat-form-field-wrapper { padding-bottom: 0; }
 table { width: 100%; font-family: $shocklogic-font; background: #212121; }
 tr.example-detail-row { height: 0; }
@@ -46,3 +47,5 @@ tr.example-element-row:not(.example-expanded-row):active { background: #000; }
 .text-justify {
   text-align: justify;
 }
+
+.try-again-btn{ background-color: $shocklogic-orange; color: $shocklogic-light; }

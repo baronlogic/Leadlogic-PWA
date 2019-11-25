@@ -7,11 +7,13 @@ import { ScanComponent } from './scan/scan.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PagesComponent } from './pages.component';
 import { LeadDetailsComponent } from './lead-details/lead-details.component';
+import { AboutComponent } from './about/about.component';
+import { AccountComponent } from './account/account.component';
 
 
 
 @NgModule({
-  declarations: [DashboardComponent, ScanComponent, SettingsComponent, PagesComponent, LeadDetailsComponent],
+  declarations: [DashboardComponent, ScanComponent, SettingsComponent, PagesComponent, LeadDetailsComponent, AboutComponent, AccountComponent],
   imports: [
     CommonModule,
     PagesRoutingModule,

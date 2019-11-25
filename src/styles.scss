@@ -40,16 +40,20 @@ mat-toolbar{ color: $shocklogic-orange !important; font-family: $shocklogic-font
 .width-100{ width: 100%; }
 
 .spacer { flex: 1 1 auto; }
+.btn-none { width: 40px; height: 40px; }
 
 .footer mat-toolbar{ box-shadow: 0px -2px 1px -1px rgba(0, 0, 0, 0.2); margin-top: 2px !important; }
 
 ngx-bottom-nav{ background: #212121; }
 ngx-bottom-nav-button:not(.active) { --ngx-bottom-nav-button-color: whitesmoke; }
 
+.text-left{ text-align: left; }
 .text-center{ text-align: center; }
+.text-right{ text-align: right; }
 
 .ml--15{ margin-left: -15px !important; }
 .mr--15{ margin-right: -15px !important; }
+.mt-10{ margin-top: 10px !important; }
 .mt-20{ margin-top: 20px !important; }
 .mb-20{ margin-bottom: 20px; }
 

@@ -26,6 +26,10 @@ export class DashboardComponent implements OnInit {
   user: any;
   alluserData: any;
   contactsData: any;
+  //This handles the mat-progress-bar
+  bLeads = true;
+  //This handles the error response when loading projects
+  bError = false;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -47,7 +51,7 @@ export class DashboardComponent implements OnInit {
       return;
     }
     this.user = JSON.parse(localStorage.getItem('leadLogged'));
-    this.getUserData(this.user.clientId, this.user.projectId, this.user.personId);
+    //this.getUserData(this.user.clientId, this.user.projectId, this.user.personId);
     this.getTheContacts(this.user.clientId, this.user.projectId, this.user.personId);
   }
 
@@ -61,7 +65,7 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  getUserData(clientId: string, projectId: string, personId: string){
+  /*getUserData(clientId: string, projectId: string, personId: string){
     this.personsService.getSpecificPersonRecord(clientId, projectId, personId)
     .subscribe(
       res => {
@@ -76,7 +80,7 @@ export class DashboardComponent implements OnInit {
         this.openSnackBar(err.message);
       }
     );
-  }
+  }*/
 
   getTheContacts(clientId: string, projectId: string, personId: string){
     this.deviceScansService.getAllScans(clientId, projectId, personId).pipe(
@@ -93,12 +97,12 @@ export class DashboardComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.contactsData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        //console.log(this.dataSource.filteredData);
-        console.log(this.contactsData);
+        this.bLeads = false;
       },
       err => {
-        //console.log(err);
-        this.openSnackBar(err.message);
+        console.log(err)
+        this.bError = true;
+        this.bLeads = false;
       }
     );
   }
@@ -111,18 +115,26 @@ export class DashboardComponent implements OnInit {
     this.deviceScansService.getNotesForAPerson(this.user.clientId, this.user.projectId, element.Person_Id, this.user.personId)
     .subscribe(
       res => {
-        //console.log(res);
         let aux: any = res;
-        element.notes = aux.Notes;
+        if(aux != null){
+          element.notes = aux.Notes;
+        }
+        else{
+          element.notes = '';
+        }
         localStorage.setItem('leadDetails', JSON.stringify(element));
-        //console.log(element);
         this.router.navigate(['pages/lead-details']);
       },
       err => {
-        //console.log(err);
-        this.openSnackBar(err.message);
+        this.openSnackBar('Something went wrong...');
       }
     );
+  }
+
+  loadLeads(){
+    this.bLeads = true;
+    this.bError = false;
+    this.getTheContacts(this.user.clientId, this.user.projectId, this.user.personId);
   }
 
 }

@@ -54,3 +54,5 @@ tr.example-element-row:not(.example-expanded-row):active { background: #000; }
 .details-tr:nth-child(even){background-color: #313131 }
 .details-th { border: 1px solid $shocklogic-black; background-color: $shocklogic-black; }
 .try-again-btn{ background-color: $shocklogic-orange; color: $shocklogic-light; }
+
+tr.mat-header-row { display: none; }

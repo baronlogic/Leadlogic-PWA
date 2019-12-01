@@ -97,7 +97,6 @@ export class DashboardComponent implements OnInit {
     )
     .subscribe(
       res => {
-        console.log(res)
         this.contactsData = res;
         this.dataSource = new MatTableDataSource(this.contactsData);
         this.dataSource.paginator = this.paginator;

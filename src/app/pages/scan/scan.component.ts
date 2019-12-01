@@ -15,13 +15,12 @@ export class ScanComponent implements OnInit {
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo = null;
   hasDevices: boolean;
-
   auxDevice: any;
-
   scannerEnabled = true;
-
+  //bLoading is used to handle the spinner when the screen is loading
   bLoading = false;
-
+  //bLoading is used to display the button to scan again
+  bScanAgain = false;
   bPersonId = false;
   personId: string;
   personScanned: any;
@@ -63,6 +62,7 @@ export class ScanComponent implements OnInit {
   reloadScanner(){
     this.scannerEnabled = true;
     this.bPersonId = false;
+    this.bScanAgain = false;
     this.currentDevice = this.auxDevice;
   }
 
@@ -139,10 +139,10 @@ export class ScanComponent implements OnInit {
     this.personsService.getSpecificPersonRecord(clientId, projectId, personId)
     .subscribe(
       res => {
-        //console.log(res);
         if(Array.isArray(res)){
           this.openSnackBar("The person id is not valid!");
           this.bLoading = false;
+          this.bScanAgain = true;
           return;
         }
         else{
@@ -150,7 +150,6 @@ export class ScanComponent implements OnInit {
         }
       },
       err => {
-        //console.log(err);
         this.openSnackBar("Something went wrong!");
       }
     );
@@ -167,7 +166,6 @@ export class ScanComponent implements OnInit {
   }
 
   scanSuccessHandler($event){
-    //console.log($event);
     this.auxDevice = this.currentDevice;
     this.bLoading = true;
     this.scannerEnabled = false;
@@ -175,6 +173,7 @@ export class ScanComponent implements OnInit {
     if($event.split(' ').length != 1 || !isnum || $event.length != 7){
       this.openSnackBar("The scanned code does not contain a person id!");
       this.bLoading = false;
+      this.bScanAgain = true;
       return;
     }
     else{

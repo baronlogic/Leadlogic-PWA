@@ -1,66 +1,71 @@
 <div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="none center">
-        <div class="header width-100" fxLayout="column" fxLayoutAlign="none center">
-                <mat-form-field *ngIf="scannerEnabled" class="width-100 text-center lead-font bold" appearance="outline">
-                        <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
-                          <option value="" [selected]="!currentDevice">No Device Selected</option>
-                          <option *ngFor="let device of availableDevices" [value]="device.deviceId"
-                            [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}</option>
-                        </select>
-                      </mat-form-field>
 
-        </div>
-        <div class="content width-100">
-                <zxing-scanner
-                [(device)]="currentDevice"
-                (camerasFound)="onCamerasFound($event)"
-                (scanSuccess)="scanSuccessHandler($event)"
-                [enable]="scannerEnabled">
-              </zxing-scanner>
+  <div class="header width-100" fxLayout="column" fxLayoutAlign="none center">
+    <mat-form-field *ngIf="scannerEnabled" class="width-100 text-center lead-font bold" appearance="outline">
+      <select matNativeControl matInput (change)="onDeviceSelectChange($event.target.value)">
+          <option value="" [selected]="!currentDevice">No Device Selected</option>
+          <option *ngFor="let device of availableDevices" [value]="device.deviceId"
+            [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{device.label}}
+          </option>
+      </select>
+    </mat-form-field>
+  </div>
+
+  <div class="content width-100">
+    <zxing-scanner
+      [(device)]="currentDevice"
+      (camerasFound)="onCamerasFound($event)"
+      (scanSuccess)="scanSuccessHandler($event)"
+      [enable]="scannerEnabled">
+    </zxing-scanner>
             
-              <mat-spinner *ngIf="bLoading"></mat-spinner>
+    <mat-spinner *ngIf="bLoading"></mat-spinner>
             
-              <div *ngIf="personScanned" class="text-center width-100">
-                  <div style="overflow-x:auto;">
-                      <table class="lead-font text-center text-orange">
-                          <tr>
-                            <th>Person ID</th>
-                            <th>{{personId}}</th>
-                          </tr>
-                          <tr>
-                            <td>First Name</td>
-                            <td>{{personScanned.First_Name}}</td>
-                          </tr>
-                          <tr>
-                            <td>Family Name</td>
-                            <td>{{personScanned.Family_Name}}</td>
-                          </tr>
-                          <tr>
-                            <td>Company</td>
-                            <td>{{personScanned.Company}}</td>
-                          </tr>
-                          <tr>
-                            <td>Job Title</td>
-                            <td>{{personScanned.Job_Title}}</td>
-                          </tr>
-                          <tr>
-                            <td>Email</td>
-                            <td>{{personScanned.Email}}</td>
-                          </tr>
-                          <tr>
-                            <td>Mobile</td>
-                            <td>{{personScanned.Mobile}}</td>
-                          </tr>
-                        </table>
-                  </div>
-                    <br>
-                <form [formGroup]="notesForm" (ngSubmit)="saveNotes()">
-                  <mat-form-field class="lead-font text-orange" appearance="outline">
-                    <textarea formControlName="Notes" class="form-control" matInput placeholder="Enter your notes..."></textarea>
-                  </mat-form-field>
-                </form>
-              </div>
-              <button type="submit" *ngIf="!scannerEnabled && !bLoading" (click)="saveNotes()" class="leadlogic-btn" mat-raised-button>
-                <span class="btn-text">SAVE</span>
-              </button>
-        </div>
-    <div>
+    <div *ngIf="personScanned" class="text-center width-100">
+      <div style="overflow-x:auto;">
+        <table class="lead-font text-center text-orange">
+          <tr>
+            <th>Person ID</th>
+            <th>{{personId}}</th>
+          </tr>
+          <tr>
+            <td>First Name</td>
+            <td>{{personScanned.First_Name}}</td>
+          </tr>
+          <tr>
+            <td>Family Name</td>
+            <td>{{personScanned.Family_Name}}</td>
+          </tr>
+          <tr>
+            <td>Company</td>
+            <td>{{personScanned.Company}}</td>
+          </tr>
+          <tr>
+            <td>Job Title</td>
+            <td>{{personScanned.Job_Title}}</td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>{{personScanned.Email}}</td>
+          </tr>
+          <tr>
+            <td>Mobile</td>
+            <td>{{personScanned.Mobile}}</td>
+          </tr>
+        </table>
+      </div>
+      <br>
+      <form [formGroup]="notesForm" (ngSubmit)="saveNotes()">
+        <mat-form-field class="lead-font text-orange" appearance="outline">
+          <textarea formControlName="Notes" class="form-control" matInput placeholder="Enter your notes..."></textarea>
+        </mat-form-field>
+      </form>
+    </div>
+    <button type="submit" *ngIf="!scannerEnabled && !bLoading && !bScanAgain" (click)="saveNotes()" class="leadlogic-btn" mat-raised-button>
+      <span class="btn-text">SAVE</span>
+    </button>
+    <button type="submit" *ngIf="bScanAgain" (click)="reloadScanner()" class="leadlogic-btn" mat-raised-button>
+        <span class="btn-text">SCAN AGAIN</span>
+    </button>
+  </div>
+<div>

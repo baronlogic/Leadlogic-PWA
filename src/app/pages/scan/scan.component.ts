@@ -15,7 +15,9 @@ export class ScanComponent implements OnInit {
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo = null;
   hasDevices: boolean;
+  //auxDevice is used to save the last camera used to scan
   auxDevice: any;
+  //scannerEnabled is used to deactivate the camera when it has already been scanned, this avoids scanning twice in a row.
   scannerEnabled = true;
   //bLoading is used to handle the spinner when the screen is loading
   bLoading = false;

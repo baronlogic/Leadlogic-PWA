@@ -11,13 +11,16 @@
     </mat-form-field>
   </div>
 
-  <div class="content width-100">
+  <div *ngIf="scannerEnabled" class="content width-100" fxLayout="column" fxLayoutAlign="none center">
     <zxing-scanner
       [(device)]="currentDevice"
       (camerasFound)="onCamerasFound($event)"
       (scanSuccess)="scanSuccessHandler($event)"
       [enable]="scannerEnabled">
     </zxing-scanner>
+  </div>
+
+  <div *ngIf="!scannerEnabled" class="content width-100" fxLayout="column" fxLayoutAlign="center center">
             
     <mat-spinner *ngIf="bLoading"></mat-spinner>
             
@@ -61,11 +64,14 @@
         </mat-form-field>
       </form>
     </div>
+
     <button type="submit" *ngIf="!scannerEnabled && !bLoading && !bScanAgain" (click)="saveNotes()" class="leadlogic-btn" mat-raised-button>
       <span class="btn-text">SAVE</span>
     </button>
+
     <button type="submit" *ngIf="bScanAgain" (click)="reloadScanner()" class="leadlogic-btn" mat-raised-button>
         <span class="btn-text">SCAN AGAIN</span>
     </button>
+    
   </div>
 <div>

@@ -27,8 +27,8 @@
             <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
                 <th mat-header-cell *matHeaderCellDef> {{column}} </th>
                 <td class="text-justify" mat-cell *matCellDef="let element">
-                    <span *ngIf="element[column]">{{element[column]}}</span>
-                    <span *ngIf="!element[column]">None</span>
+                    <span class="fs-12" *ngIf="element[column]">{{element[column]}}</span>
+                    <span class="fs-12" *ngIf="!element[column]">None</span>
                     
                 </td>
             </ng-container>

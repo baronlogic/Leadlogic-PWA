@@ -41,10 +41,6 @@ export class ScanComponent implements OnInit {
   { }
 
   ngOnInit() {
-    if(!localStorage.getItem('leadLogged')){
-      this.goToLogin();
-      return;
-    }
     this.user = JSON.parse(localStorage.getItem('leadLogged'));
     this.notesForm = this.formBuilder.group({
       Notes: [''],

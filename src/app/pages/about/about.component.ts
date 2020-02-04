@@ -13,10 +13,6 @@ export class AboutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(!localStorage.getItem('leadLogged')){
-      this.goToLogin();
-      return;
-    }
   }
 
   goToLogin(){

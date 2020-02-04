@@ -25,11 +25,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.InstantiateForm();
-    //checkLeadLogged
-    if(localStorage.getItem('leadLogged')){
-      this.goToDashboard();
-      return;
-    }
   }
 
   InstantiateForm(){
@@ -48,8 +43,6 @@ export class LoginComponent implements OnInit {
   goToDashboard() {
     this.router.navigate(['pages'], { replaceUrl: true });
   }
-
-
 
   handleSignIn(){
     this.bSignIn = true;

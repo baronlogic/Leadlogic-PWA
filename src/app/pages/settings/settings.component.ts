@@ -26,10 +26,6 @@ export class SettingsComponent implements OnInit {
   { }
 
   ngOnInit() {
-    if(!localStorage.getItem('leadLogged')){
-      this.goToLogin();
-      return;
-    }
     this.user = JSON.parse(localStorage.getItem('leadLogged'));
   }
 
@@ -73,7 +69,7 @@ export class SettingsComponent implements OnInit {
     )
     .subscribe(
       res => {
-        this.leads = res;
+        this.filterLeads(res);
         if(this.leads.length == 0){
           this.bLeads = false;
           this.openSnackBar("You don't have leads scanned yet");
@@ -116,6 +112,21 @@ export class SettingsComponent implements OnInit {
         this.openSnackBar('Something went wrong...');
       }
     );
+  }
+
+  filterLeads(leads){
+    this.leads = Array.from(new Set(leads.map(s => s.Person_Id)))
+    .map(id => {
+        return {
+          Person_Id: id,
+          Family_Name: leads.find(s => s.Person_Id === id).Family_Name,
+          First_Name: leads.find(s => s.Person_Id === id).First_Name,
+          Company: leads.find(s => s.Person_Id === id).Company,
+          Job_Title: leads.find(s => s.Person_Id === id).Job_Title,
+          Email: leads.find(s => s.Person_Id === id).Email,
+          Mobile: leads.find(s => s.Person_Id === id).Mobile
+        };
+    });
   }
 
 }

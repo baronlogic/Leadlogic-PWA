@@ -24,10 +24,6 @@ export class AccountComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(!localStorage.getItem('leadLogged')){
-      this.goToLogin();
-      return;
-    }
     this.user = JSON.parse(localStorage.getItem('leadLogged'));
     this.getUserData(this.user.clientId, this.user.projectId, this.user.personId);
   }

@@ -50,10 +50,6 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(!localStorage.getItem('leadLogged')){
-      this.goToLogin();
-      return;
-    }
     this.user = JSON.parse(localStorage.getItem('leadLogged'));
     //this.getUserData(this.user.clientId, this.user.projectId, this.user.personId);
     this.getTheContacts(this.user.clientId, this.user.projectId, this.user.personId);
@@ -97,7 +93,8 @@ export class DashboardComponent implements OnInit {
     )
     .subscribe(
       res => {
-        this.contactsData = res;
+        this.filterLeads(res);
+        console.log(this.contactsData);
         this.dataSource = new MatTableDataSource(this.contactsData);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -147,6 +144,21 @@ export class DashboardComponent implements OnInit {
     this.bLeads = true;
     this.bError = false;
     this.getTheContacts(this.user.clientId, this.user.projectId, this.user.personId);
+  }
+
+  filterLeads(leads){
+    this.contactsData = Array.from(new Set(leads.map(s => s.Person_Id)))
+    .map(id => {
+        return {
+          Person_Id: id,
+          Family_Name: leads.find(s => s.Person_Id === id).Family_Name,
+          First_Name: leads.find(s => s.Person_Id === id).First_Name,
+          Company: leads.find(s => s.Person_Id === id).Company,
+          Job_Title: leads.find(s => s.Person_Id === id).Job_Title,
+          Email: leads.find(s => s.Person_Id === id).Email,
+          Mobile: leads.find(s => s.Person_Id === id).Mobile
+        };
+    });
   }
 
 }

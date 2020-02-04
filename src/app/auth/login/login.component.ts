@@ -25,11 +25,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.InstantiateForm();
-    //checkLeadLogged
-    if(localStorage.getItem('leadLogged')){
-      this.goToDashboard();
-      return;
-    }
   }
 
   InstantiateForm(){
@@ -51,18 +46,22 @@ export class LoginComponent implements OnInit {
 
   handleSignIn(){
     this.bSignIn = true;
+
     let formData = new FormData();
     formData.append('Identifier', this.signInForm.get('Identifier').value);
     formData.append('Password', this.signInForm.get('Password').value);
+
     this.personsService.validateUserCredentials(formData)
     .subscribe(
       res => {
         this.bSignIn = false;
-      let auxRes: any = res;
+        let auxRes: any = res;
+
         if(auxRes.type == 'error'){
           this.openSnackBar('Invalid User or Password...');
           return;
         }
+        
         else if(auxRes.type == 'success'){
           let auxUser = {
             personId: auxRes.person_id,

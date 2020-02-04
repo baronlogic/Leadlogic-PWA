@@ -24,10 +24,6 @@ export class LeadDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(!localStorage.getItem('leadLogged')){
-      this.goToLogin();
-      return;
-    }
     if(!localStorage.getItem('leadDetails')){
       this.goToDashboard();
       return;

@@ -6,9 +6,15 @@
         <button (click)="goToAccount()" class="width-100 bg-dark font-larger" mat-button>Account Info</button>
     </mat-list-item>
     <mat-list-item>
-        <button (click)="getLeads()" class="width-100 bg-dark font-larger center-spinner-btn" mat-button>
-            <span *ngIf="!bLeads">Download Leads</span>
-            <mat-spinner *ngIf="bLeads" mode="indeterminate" [diameter]="30"></mat-spinner>
+        <button (click)="emailLeads()" class="width-100 bg-dark font-larger center-spinner-btn" mat-button [disabled]="bEmail || bDownload">
+            <span *ngIf="!bEmail">Email Leads</span>
+            <mat-spinner *ngIf="bEmail" mode="indeterminate" [diameter]="30"></mat-spinner>
+        </button>
+    </mat-list-item>
+    <mat-list-item>
+        <button (click)="downloadLeads()" class="width-100 bg-dark font-larger center-spinner-btn" mat-button [disabled]="bEmail || bDownload">
+            <span *ngIf="!bDownload">Download Leads</span>
+            <mat-spinner *ngIf="bDownload" mode="indeterminate" [diameter]="30"></mat-spinner>
         </button>
     </mat-list-item>
     <br>

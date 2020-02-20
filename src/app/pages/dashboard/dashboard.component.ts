@@ -61,10 +61,6 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  goToLogin(){
-    this.router.navigate(['']);
-  }
-
   /*getUserData(clientId: string, projectId: string, personId: string){
     this.personsService.getSpecificPersonRecord(clientId, projectId, personId)
     .subscribe(

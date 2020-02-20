@@ -15,7 +15,8 @@ export class SettingsComponent implements OnInit {
 
   user: any;
   leads: any;
-  bLeads = false;
+  bDownload = false;
+  bEmail = false;
     
   constructor(
     private router: Router,
@@ -58,7 +59,6 @@ export class SettingsComponent implements OnInit {
   }
 
   getLeads(){
-    this.bLeads = true;
     this.deviceScansService.getAllScans(this.user.clientId, this.user.projectId, this.user.personId).pipe(
       map(
         (resp: any) => { 
@@ -71,14 +71,16 @@ export class SettingsComponent implements OnInit {
       res => {
         this.filterLeads(res);
         if(this.leads.length == 0){
-          this.bLeads = false;
+          this.bDownload = false;
+          this.bEmail = false;
           this.openSnackBar("You don't have leads scanned yet");
           return;
         }
         this.getLeadsNotes();
       },
       err => {
-        this.bLeads = false;
+        this.bDownload = false;
+          this.bEmail = false;
         this.openSnackBar('Something went wrong...');
       }
     );
@@ -104,11 +106,18 @@ export class SettingsComponent implements OnInit {
             this.leads[i].Notes = '';
           }
         }
-        this.exportAsXLSX(this.leads);
-        this.bLeads = false;
+        if(this.bDownload){
+          this.exportAsXLSX(this.leads);
+        }
+        else if(this.bEmail){
+          this.sendLeadsByEmail();
+        }
+        this.bDownload = false;
+          this.bEmail = false;
       },
       err => {
-        this.bLeads = false;
+        this.bDownload = false;
+          this.bEmail = false;
         this.openSnackBar('Something went wrong...');
       }
     );
@@ -127,6 +136,32 @@ export class SettingsComponent implements OnInit {
           Mobile: leads.find(s => s.Person_Id === id).Mobile
         };
     });
+  }
+
+  sendLeadsByEmail(){
+    let formData = new FormData();
+    formData.append('Leads_Data', JSON.stringify(this.leads));
+    this.deviceScansService.sendLeadsByEmail(this.user.clientId, this.user.projectId, this.user.personId, formData)
+    .subscribe(
+      res => {
+        let auxMessage: any = res;
+        this.openSnackBar(auxMessage.success.message);
+      },
+      err => {
+        //console.log(err);
+        this.openSnackBar('Something went wrong...');
+      }
+    );
+  }
+
+  downloadLeads(){
+    this.bDownload = true;
+    this.getLeads();
+  }
+
+  emailLeads(){
+    this.bEmail = true;
+    this.getLeads();
   }
 
 }

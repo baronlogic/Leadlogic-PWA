@@ -24,4 +24,8 @@ export class DeviceScansService extends ApiService {
     return this.http.get(this.API_URL+clientId+'-'+projectId+'-2-0/DeviceScanNotes/'+personId+'/'+deviceId, this.httpOptions);
   }
 
+  sendLeadsByEmail(clientId: string, projectId: string, deviceId: string, leadsData: any){
+    return this.http.post(this.API_URL+clientId+'-'+projectId+'-2-0/'+ENDPOINT_NAME+'/sendleads/'+deviceId, leadsData, this.httpOptions);
+  }
+
 }

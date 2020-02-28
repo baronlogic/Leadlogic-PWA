@@ -82,8 +82,8 @@ export class DashboardComponent implements OnInit {
     this.deviceScansService.getAllScans(clientId, projectId, personId).pipe(
       map(
         (resp: any) => { 
-          return resp.map(({Person_Id, Family_Name, First_Name, Company, Job_Title, Email, Mobile}) =>
-            ({Person_Id, Family_Name, First_Name, Company, Job_Title, Email, Mobile}));
+          return resp.map(({Person_Id, Family_Name, First_Name, Company, Job_Title, EMail, Mobile}) =>
+            ({Person_Id, Family_Name, First_Name, Company, Job_Title, EMail, Mobile}));
         }
       )
     )
@@ -151,7 +151,7 @@ export class DashboardComponent implements OnInit {
           First_Name: leads.find(s => s.Person_Id === id).First_Name,
           Company: leads.find(s => s.Person_Id === id).Company,
           Job_Title: leads.find(s => s.Person_Id === id).Job_Title,
-          Email: leads.find(s => s.Person_Id === id).Email,
+          EMail: leads.find(s => s.Person_Id === id).EMail,
           Mobile: leads.find(s => s.Person_Id === id).Mobile
         };
     });

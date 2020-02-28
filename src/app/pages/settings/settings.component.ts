@@ -62,8 +62,8 @@ export class SettingsComponent implements OnInit {
     this.deviceScansService.getAllScans(this.user.clientId, this.user.projectId, this.user.personId).pipe(
       map(
         (resp: any) => { 
-          return resp.map(({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}) =>
-          ({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}));
+          return resp.map(({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, EMail, Mobile}) =>
+          ({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, EMail, Mobile}));
         }
       )
     )
@@ -128,11 +128,17 @@ export class SettingsComponent implements OnInit {
     .map(id => {
         return {
           Person_Id: id,
-          Family_Name: leads.find(s => s.Person_Id === id).Family_Name,
+          Last_Scanned: leads.find(s => s.Person_Id === id).Last_Scanned,
+          Prefix_Title: leads.find(s => s.Person_Id === id).Prefix_Title,
           First_Name: leads.find(s => s.Person_Id === id).First_Name,
-          Company: leads.find(s => s.Person_Id === id).Company,
+          Family_Name: leads.find(s => s.Person_Id === id).Family_Name,
           Job_Title: leads.find(s => s.Person_Id === id).Job_Title,
-          Email: leads.find(s => s.Person_Id === id).Email,
+          Company: leads.find(s => s.Person_Id === id).Company,
+          Address_1: leads.find(s => s.Person_Id === id).Address_1,
+          Zip_Code: leads.find(s => s.Person_Id === id).Zip_Code,
+          City: leads.find(s => s.Person_Id === id).City,
+          Country_Code: leads.find(s => s.Person_Id === id).Country_Code,
+          EMail: leads.find(s => s.Person_Id === id).EMail,
           Mobile: leads.find(s => s.Person_Id === id).Mobile
         };
     });

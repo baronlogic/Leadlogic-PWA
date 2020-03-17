@@ -62,8 +62,8 @@ export class SettingsComponent implements OnInit {
     this.deviceScansService.getAllScans(this.user.clientId, this.user.projectId, this.user.personId).pipe(
       map(
         (resp: any) => { 
-          return resp.map(({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, EMail, Mobile}) =>
-          ({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, EMail, Mobile}));
+          return resp.map(({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, EMail, Telephone, Mobile}) =>
+          ({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, EMail, Telephone, Mobile}));
         }
       )
     )
@@ -139,6 +139,7 @@ export class SettingsComponent implements OnInit {
           City: leads.find(s => s.Person_Id === id).City,
           Country_Code: leads.find(s => s.Person_Id === id).Country_Code,
           EMail: leads.find(s => s.Person_Id === id).EMail,
+          Telephone: leads.find(s => s.Person_Id === id).Telephone,
           Mobile: leads.find(s => s.Person_Id === id).Mobile
         };
     });

@@ -15,7 +15,8 @@ export class SettingsComponent implements OnInit {
 
   user: any;
   leads: any;
-  bLeads = false;
+  bDownload = false;
+  bEmail = false;
     
   constructor(
     private router: Router,
@@ -58,12 +59,11 @@ export class SettingsComponent implements OnInit {
   }
 
   getLeads(){
-    this.bLeads = true;
     this.deviceScansService.getAllScans(this.user.clientId, this.user.projectId, this.user.personId).pipe(
       map(
         (resp: any) => { 
-          return resp.map(({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}) =>
-          ({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, Email, Mobile}));
+          return resp.map(({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, EMail, Telephone, Mobile}) =>
+          ({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, EMail, Telephone, Mobile}));
         }
       )
     )
@@ -71,14 +71,16 @@ export class SettingsComponent implements OnInit {
       res => {
         this.filterLeads(res);
         if(this.leads.length == 0){
-          this.bLeads = false;
+          this.bDownload = false;
+          this.bEmail = false;
           this.openSnackBar("You don't have leads scanned yet");
           return;
         }
         this.getLeadsNotes();
       },
       err => {
-        this.bLeads = false;
+        this.bDownload = false;
+          this.bEmail = false;
         this.openSnackBar('Something went wrong...');
       }
     );
@@ -104,11 +106,18 @@ export class SettingsComponent implements OnInit {
             this.leads[i].Notes = '';
           }
         }
-        this.exportAsXLSX(this.leads);
-        this.bLeads = false;
+        if(this.bDownload){
+          this.exportAsXLSX(this.leads);
+        }
+        else if(this.bEmail){
+          this.sendLeadsByEmail();
+        }
+        this.bDownload = false;
+          this.bEmail = false;
       },
       err => {
-        this.bLeads = false;
+        this.bDownload = false;
+          this.bEmail = false;
         this.openSnackBar('Something went wrong...');
       }
     );
@@ -119,14 +128,47 @@ export class SettingsComponent implements OnInit {
     .map(id => {
         return {
           Person_Id: id,
-          Family_Name: leads.find(s => s.Person_Id === id).Family_Name,
+          Last_Scanned: leads.find(s => s.Person_Id === id).Last_Scanned,
+          Prefix_Title: leads.find(s => s.Person_Id === id).Prefix_Title,
           First_Name: leads.find(s => s.Person_Id === id).First_Name,
-          Company: leads.find(s => s.Person_Id === id).Company,
+          Family_Name: leads.find(s => s.Person_Id === id).Family_Name,
           Job_Title: leads.find(s => s.Person_Id === id).Job_Title,
-          Email: leads.find(s => s.Person_Id === id).Email,
+          Company: leads.find(s => s.Person_Id === id).Company,
+          Address_1: leads.find(s => s.Person_Id === id).Address_1,
+          Zip_Code: leads.find(s => s.Person_Id === id).Zip_Code,
+          City: leads.find(s => s.Person_Id === id).City,
+          Country_Code: leads.find(s => s.Person_Id === id).Country_Code,
+          EMail: leads.find(s => s.Person_Id === id).EMail,
+          Telephone: leads.find(s => s.Person_Id === id).Telephone,
           Mobile: leads.find(s => s.Person_Id === id).Mobile
         };
     });
+  }
+
+  sendLeadsByEmail(){
+    let formData = new FormData();
+    formData.append('Leads_Data', JSON.stringify(this.leads));
+    this.deviceScansService.sendLeadsByEmail(this.user.clientId, this.user.projectId, this.user.personId, formData)
+    .subscribe(
+      res => {
+        let auxMessage: any = res;
+        this.openSnackBar(auxMessage.success.message);
+      },
+      err => {
+        //console.log(err);
+        this.openSnackBar('Something went wrong...');
+      }
+    );
+  }
+
+  downloadLeads(){
+    this.bDownload = true;
+    this.getLeads();
+  }
+
+  emailLeads(){
+    this.bEmail = true;
+    this.getLeads();
   }
 
 }

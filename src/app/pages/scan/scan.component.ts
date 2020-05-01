@@ -207,8 +207,10 @@ export class ScanComponent implements OnInit {
       res => {
         console.log(res);
         this.openSnackBar("Notes saved successfully!");
-        this.reloadScanner();
+        //this.reloadScanner();
+        this.router.navigate(['pages/dashboard']);
         this.personScanned = false;
+
       },
       err => {
         console.log(err);

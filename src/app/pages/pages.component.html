@@ -23,7 +23,7 @@
     <div fxFill fxLayout="column" fxLayoutAlign="space-between center">
         <div class="width-100 header">
             <mat-toolbar>
-                <button id="btn" mat-icon-button (click)="drawer.toggle()"><mat-icon>menu</mat-icon></button>
+                <button id="btn" mat-icon-button (click)="drawer.toggle()" fxHide="true" fxShow.gt-xs><mat-icon>menu</mat-icon></button>
                 <span class="spacer"></span>
                 <span class="title text-center"><strong>Lead</strong>logic</span>
                 <span class="spacer"></span>
@@ -32,6 +32,9 @@
         </div>
         <div class="content main-content">
             <router-outlet></router-outlet>
+        </div>
+        <div class="width-100 footer" fxShow="true" fxHide.gt-xs>
+            <ngx-bottom-nav [items]="items"></ngx-bottom-nav>
         </div>
     </div>
 </mat-drawer-container>

@@ -40,7 +40,7 @@ export class LeadDetailsComponent implements OnInit {
 
   openSnackBar(message: string){
     this.snackBar.open(message, 'Close', {
-      duration: 3000,
+      duration: 5000,
     });
   }
 

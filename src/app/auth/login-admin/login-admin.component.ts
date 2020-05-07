@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from 'src/app/core/services/users.service';
+import { AdminLogged } from 'src/app/core/models/interfaces/admin-logged';
 
 @Component({
   selector: 'app-login-admin',
@@ -11,7 +12,6 @@ import { UsersService } from 'src/app/core/services/users.service';
 })
 export class LoginAdminComponent implements OnInit {
 
-  auxRes: any;
   signInForm: FormGroup;
   hidePassword = true;
   bSignIn = false;
@@ -33,11 +33,11 @@ export class LoginAdminComponent implements OnInit {
 
   openSnackBar(message: string){
     this.snackBar.open(message, 'Close', {
-      duration: 3000,
+      duration: 5000,
     });
   }
 
-  goToDashboard(){
+  goToAdminDashboard() {
     this.router.navigate(['admin'], { replaceUrl: true });
   }
 
@@ -62,20 +62,17 @@ export class LoginAdminComponent implements OnInit {
 
   handleSignIn(){
     this.bSignIn = true;
-
-    let formData = new FormData();
-    formData.append('email', this.signInForm.get('Email').value);
-    formData.append('password', this.signInForm.get('Password').value);
-
+    let credentialsFormData = new FormData();
+    credentialsFormData.append('email', this.signInForm.get('Email').value);
+    credentialsFormData.append('password', this.signInForm.get('Password').value);
     //If we log in with an email
     if(this.checkingInputEmail()){
-      this.loginWithEmail(this.signInForm.get('Client_Id').value, formData);
+      this.loginWithEmail(this.signInForm.get('Client_Id').value, credentialsFormData);
     }
     //If we log in with an username
     else{
-      this.loginWithUser(formData);
+      this.loginWithUser(credentialsFormData);
     }
-
   }
 
   loginWithEmail(clientId, userForm){
@@ -83,8 +80,7 @@ export class LoginAdminComponent implements OnInit {
     .subscribe(
       res => {
         this.bSignIn = false;
-        this.auxRes = res;
-        this.checkResType(this.auxRes);
+        this.checkResType(res);
       },
       err => {
         this.bSignIn = false;
@@ -98,8 +94,7 @@ export class LoginAdminComponent implements OnInit {
     .subscribe(
       res => {
         this.bSignIn = false;
-        this.auxRes = res;
-        this.checkResType(this.auxRes);
+        this.checkResType(res);
       },
       err => {
         this.bSignIn = false;
@@ -114,14 +109,35 @@ export class LoginAdminComponent implements OnInit {
       return;
     }
     else if(res.type == 'success'){
-      let auxUser = {
-        id: res.id,
-        clientId: res.client_id,
-        firstName: res.first_name,
-        familyName: res.family_name,
+      console.log(res);
+      let leadlogicMobile = {
+        license: res.systems.LeadlogicMobile,
+        active:res.systems.LeadlogicMobileStatus
       }
-      localStorage.setItem('userLogged', JSON.stringify(auxUser));
-      this.goToDashboard();
+      /*
+      ACTIVE: we use it to show or not the system. 
+      It is with this value that we are going to deactivate the system. 
+      We handle this value with the System Status. 
+      LICENSE: is to handle if the user has a paid license or not from the system.
+      We handle it with the value with the name of the system. 
+      The user can still login but we will show a message 
+      that he is without a license to contact Shocklogic support
+      1 is active and 0 is deactivated
+      */
+      if(leadlogicMobile.active == 0){
+        this.openSnackBar('You do not have access available to use the Leadlogic Admin Mode, please contact Shocklogic support');
+        return;
+      }
+      else if(leadlogicMobile.license == 0){
+        this.openSnackBar('You do not have an active license for this system, please contact Shocklogic support');
+      }
+      /*We don't really use these attributes here, at least not for now
+      neither do we use the TOKEN, I understand that it is only used in the Unified System Login 
+      to verify sessions between Angular, Laravel and ASP Classic*/
+      delete res.type; delete res.check; delete res.passed; delete res.isPerson; delete res.token; delete res.systems;
+      let adminLogged: AdminLogged = res;
+      localStorage.setItem('adminLogged', JSON.stringify(adminLogged));
+      this.goToAdminDashboard();
     }
   }
 

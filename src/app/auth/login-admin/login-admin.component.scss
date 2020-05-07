@@ -1,41 +1,30 @@
-$shocklogic-font: 'Nunito Sans', sans-serif;
+$shocklogic-font: 'Montserrat', sans-serif;
 $shocklogic-orange: #FD814C;
+$shocklogic-light: whitesmoke;
 
-.sign-in-title{
-    color: $shocklogic-orange;
-    font-family: $shocklogic-font;
-    font-size: 36px;
-    margin-bottom: 10px;
-}
-.sign-in-subtitle{
-    color: rgb(209, 209, 209);
-    font-family: $shocklogic-font;
-    font-size: 14px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+.title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    font-weight: 300;
 }
 
-.width-login-btn{
-    margin-top: 20px;
-    width: 250px;
-    height: 45PX;
-    background-color: $shocklogic-orange;
-    text-align: -webkit-center;
+.subtitle {
+    text-align: center;
+    color: $shocklogic-light;
 }
 
-.btn-login-text{
-    font-size: 16px;
-    font-family: $shocklogic-font;
-    font-weight: 700;
+mat-form-field.mat-form-field, .login-btn {
+    max-width: 540px;
+    width: 90%;
+    color: $shocklogic-light;
 }
 
-:host ::ng-deep .mat-form-field-wrapper{
-    padding-bottom: 0;
+.input-uppercase {
+    text-transform: uppercase;
 }
 
-.trans{
-    color: transparent;
-}
+//:host ::ng-deep .mat-form-field-wrapper{ padding-bottom: 0; }
+
+.login-btn { text-align: -webkit-center; min-height: 36.313px; }
+
+.second-btn { margin-top: 20px; color: $shocklogic-orange }

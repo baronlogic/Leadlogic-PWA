@@ -1,9 +1,21 @@
 $shocklogic-font: 'Montserrat', sans-serif;
+$shocklogic-orange: #FD814C;
+$shocklogic-light: whitesmoke;
 
-.sign-in-title{ font-size: 36px; margin-bottom: 10px; }
+.title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
 
-:host ::ng-deep .mat-form-field-wrapper{ padding-bottom: 0; }
+mat-form-field.mat-form-field, .login-btn {
+    max-width: 540px;
+    width: 90%;
+    color: $shocklogic-light;
+}
 
-.width-login-btn{ margin-top: 20px; width: 250px; height: 45px; text-align: -webkit-center; }
+//:host ::ng-deep .mat-form-field-wrapper{ padding-bottom: 0; }
 
-.btn-login-text{ font-size: 16px; font-family: $shocklogic-font; font-weight: 900; }
+.login-btn { text-align: -webkit-center; min-height: 36.313px; }
+
+.second-btn { margin-top: 20px; color: $shocklogic-orange }

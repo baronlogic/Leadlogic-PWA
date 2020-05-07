@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserLogged } from 'src/app/core/models/interfaces/user-logged';
 
 @Component({
   selector: 'app-about',
@@ -8,18 +9,17 @@ import { Router } from '@angular/router';
 })
 export class AboutComponent implements OnInit {
 
+  userLogged: UserLogged;
+
   constructor(
-    private router: Router
+    private router: Router,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.userLogged = JSON.parse(localStorage.getItem('userLogged'));
   }
 
-  goToLogin(){
-    this.router.navigate(['']);
-  }
-
-  goToSettings(){
+  goToHome(){
     this.router.navigate(['pages/settings']);
   }
 

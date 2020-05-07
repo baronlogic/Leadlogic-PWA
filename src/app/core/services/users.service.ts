@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 
-const ENDPOINT_NAME = 'Users';
-
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService extends ApiService {
+export class UsersService {
+  private readonly usersUrl;
+  private readonly userUrl;
 
-  validateUserCredentials(clientId: string, user: any){
-    return this.http.post(this.API_URL+clientId+'-NONE-2-/'+ENDPOINT_NAME+'/login/', user, this.httpOptions);
+  constructor(private http: ApiService) { 
+    this.usersUrl = 'Users';
+    this.userUrl = 'User';
   }
 
-  validateUserWithoutClientId(user: any){
-    return this.http.post(this.API_URL+'NONE-NONE-2-/User/login/', user, this.httpOptions);
+  validateUserCredentials(clientId: string, userFormData: FormData): any {
+    return this.http.post(clientId+'-NONE-2-/'+this.usersUrl+'/login/', userFormData, this.http.httpOptions);
+  }
+
+  validateUserWithoutClientId(userFormData: FormData): any {
+    return this.http.post('NONE-NONE-2-/'+this.userUrl+'/login/', userFormData, this.http.httpOptions);
   }
 
 }

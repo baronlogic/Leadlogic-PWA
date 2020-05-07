@@ -8,29 +8,21 @@ import { LeadDetailsComponent } from './lead-details/lead-details.component';
 import { AboutComponent } from './about/about.component';
 import { AccountComponent } from './account/account.component';
 
+
 const routes: Routes = [
   { 
     path: "",
     component: PagesComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: "dashboard", component: DashboardComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: "home", component: DashboardComponent },
       { path: "scan", component: ScanComponent },
       { path: "settings", component: SettingsComponent }
     ]
   },
-  { 
-    path: "lead-details",
-    component: LeadDetailsComponent
-  },
-  { 
-    path: "about", 
-    component: AboutComponent 
-  },
-  { 
-    path: "account", 
-    component: AccountComponent 
-  }
+  { path: 'lead-details/:personId', component: LeadDetailsComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'account', component: AccountComponent }
 ];
 
 @NgModule({

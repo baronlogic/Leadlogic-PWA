@@ -1,17 +1,16 @@
-<div fxFill fxLayout="column" fxLayoutAlign="space-between center">
+<div fxFill fxLayout="column" fxLayoutAlign="none center">
     <div class="width-100 header">
         <mat-toolbar>
-            <button (click)="goToSettings()" class="ml--15" mat-icon-button>
-                <mat-icon>navigate_before</mat-icon>
-            </button>
+            <button (click)="goToHome()" mat-icon-button><mat-icon>navigate_before</mat-icon></button>
             <span class="spacer"></span>
-            <span class="sign-in-title text-center"><strong class="bold">Lead</strong>logic</span>
+            <span class="title text-center"><strong>Lead</strong>logic</span>
             <span class="spacer"></span>
             <span class="btn-none"></span>
         </mat-toolbar>
-        <mat-progress-bar *ngIf="false" mode="indeterminate"></mat-progress-bar>
     </div>
-    <div class="content width-100 text-center slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center">
+    <div class="content width-100 slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center">
+        <img width="125" src="https://trello-attachments.s3.amazonaws.com/5a1eeb21fa6553a13d6edbbb/5a1eeb547659b28037047582/7d347c0e8d1001377956bd1a49567b36/sl_logo.png" alt="">
+        <br>
         <p class="about-text">Shocklogic with over 20 years' experience supporting the meetings industry, leads the way in providing event organisers, associations and societies with online event management software , technology and hands-on solutions for organising and managing conferences, events, members and contacts.</p>
         <br>
         <p>For more information</p>
@@ -21,4 +20,4 @@
         <a class="sl-link" href="mailto:info@shocklogic.com">info@shocklogic.com</a>
         <a class="sl-link mt-10" href="tel:+447771614759">+44 777 1614759</a>
     </div>
-<div>
+</div>

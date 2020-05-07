@@ -5,6 +5,7 @@ import { ExcelService } from 'src/app/core/services/excel.service';
 import { DeviceScansService } from 'src/app/core/services/device-scans.service';
 import { map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
+import { UserLogged } from 'src/app/core/models/interfaces/user-logged';
 
 @Component({
   selector: 'app-settings',
@@ -13,31 +14,26 @@ import { forkJoin } from 'rxjs';
 })
 export class SettingsComponent implements OnInit {
 
-  user: any;
+  userLogged: UserLogged;
   leads: any;
   bDownload = false;
   bEmail = false;
-    
+
   constructor(
     private router: Router,
     public snackBar: MatSnackBar,
     private excelService: ExcelService,
     private deviceScansService: DeviceScansService
-  ) 
-  { }
+  ) { }
 
-  ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('leadLogged'));
+  ngOnInit(): void {
+    this.userLogged = JSON.parse(localStorage.getItem('userLogged'));
   }
 
   openSnackBar(message: string){
     this.snackBar.open(message, 'Close', {
       duration: 3000,
     });
-  }
-
-  goToLogin(){
-    this.router.navigate(['']);
   }
 
   goToAbout(){
@@ -50,16 +46,16 @@ export class SettingsComponent implements OnInit {
 
   signOut(){
     localStorage.clear();
-    this.router.navigate(['']);
+    this.router.navigate([''], { replaceUrl: true });
   }
 
   exportAsXLSX(data):void {
-    this.excelService.exportAsExcelFile(data, this.user.clientId);
+    this.excelService.exportAsExcelFile(data, this.userLogged.client_id);
     this.openSnackBar('Leads successfully downloaded!');
   }
 
   getLeads(){
-    this.deviceScansService.getAllScans(this.user.clientId, this.user.projectId, this.user.personId).pipe(
+    this.deviceScansService.getAllScans(this.userLogged.client_id, this.userLogged.project_id, this.userLogged.person_id).pipe(
       map(
         (resp: any) => { 
           return resp.map(({Person_Id, Last_Scanned, Prefix_Title, First_Name, Family_Name, Job_Title, Company, Address_1, Zip_Code, City, Country_Code, EMail, Telephone, Mobile}) =>
@@ -87,7 +83,7 @@ export class SettingsComponent implements OnInit {
   }
 
   getNotes(element){
-    return this.deviceScansService.getNotesForAPerson(this.user.clientId, this.user.projectId, element.Person_Id, this.user.personId)
+    return this.deviceScansService.getNotesForAPerson(this.userLogged.client_id, this.userLogged.project_id, element.Person_Id, this.userLogged.person_id)
   }
 
   getLeadsNotes(){
@@ -148,7 +144,7 @@ export class SettingsComponent implements OnInit {
   sendLeadsByEmail(){
     let formData = new FormData();
     formData.append('Leads_Data', JSON.stringify(this.leads));
-    this.deviceScansService.sendLeadsByEmail(this.user.clientId, this.user.projectId, this.user.personId, formData)
+    this.deviceScansService.sendLeadsByEmail(this.userLogged.client_id, this.userLogged.project_id, this.userLogged.person_id, formData)
     .subscribe(
       res => {
         let auxMessage: any = res;

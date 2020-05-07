@@ -1,6 +1,4 @@
 @import '~@angular/material/theming';
-//ngx-bottom-nav
-@import '~ngx-bottom-nav/theming';
 
 @include mat-core();
 
@@ -45,5 +43,3 @@ $theme-warn:    mat-palette($mat-red);
 $theme-theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 
 @include angular-material-theme($theme-theme);
-//ngx-bottom-nav
-@include ngx-bottom-nav-theme($theme-theme);

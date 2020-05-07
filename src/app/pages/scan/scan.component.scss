@@ -1,10 +1,82 @@
-$shocklogic-orange: #FD814C;
-$shocklogic-black: #212121;
-$shocklogic-light: whitesmoke;
 $shocklogic-font: 'Montserrat', sans-serif;
-.width-80{ width: 80%; }
-table { border-collapse: collapse; width: 100%; font-family: $shocklogic-font; font-size: 16px; border: 1px solid $shocklogic-black; }
-th, td { padding: 8px; font-weight: 500; border-bottom: 1px solid $shocklogic-black; }
-tr:nth-child(even){background-color: #313131 }
-th { border: 1px solid $shocklogic-black; background-color: $shocklogic-black; }
-.leadlogic-btn{ background-color: $shocklogic-orange; color: $shocklogic-light; }
+$shocklogic-light: whitesmoke;
+$shocklogic-orange: #FD814C;
+$shocklogic-dark: #222327;
+$shocklogic-black: #212121;
+
+.title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    font-weight: 300;
+    color: $shocklogic-orange;
+}
+
+mat-form-field.mat-form-field, table, zxing-scanner, .notes-card {
+    max-width: 540px;
+    width: 90%;
+    color: $shocklogic-light;
+}
+
+zxing-scanner {
+    height: 100%;
+}
+
+:host ::ng-deep video { height: 100% !important; }
+
+:host ::ng-deep .mat-form-field-wrapper { padding-bottom: 0; }
+
+table { 
+    color: $shocklogic-orange; 
+    border-collapse: collapse; 
+    font-family: $shocklogic-font;
+    font-size: 0.9rem; 
+    border: 1px solid $shocklogic-dark; 
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+tr { min-height: 37px; max-height: 37px; height: 37px; }
+
+th, td {
+    padding: 8px; 
+    font-weight: 500; 
+    border-bottom: 1px solid $shocklogic-dark; 
+    border: 1px solid $shocklogic-dark; 
+    font-family: $shocklogic-font;
+    background-color: $shocklogic-black;
+}
+
+tr:nth-child(even) {background-color: $shocklogic-dark }
+
+.notes-card {
+    background-color: $shocklogic-black;
+    padding: 0;
+    text-align: center;
+}
+
+.notes-btn {
+    margin: 20px;
+    margin-bottom: 0px;
+}
+
+.edit-btn {
+    background-color: $shocklogic-orange;
+}
+
+.cancel-btn {
+    background-color: #f33d3d;
+}
+
+.save-btn {
+    background-color: #2e852e;
+}
+
+.notes-area {
+    width: 90%;
+    color: $shocklogic-orange;
+}
+
+.form-padding { 
+    padding-bottom: 1.34375em;
+    padding-top: 1.34375em; 
+}

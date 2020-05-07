@@ -1,3 +1,23 @@
-.bg-dark{ background-color: #212121; }
-.font-larger{ font-size: larger; }
-.center-spinner-btn{ text-align: -webkit-center; }
+$shocklogic-orange: #FD814C;
+
+hr, .list-btn {
+    max-width: 540px;
+    width: 90%;
+}
+
+.list-btn {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 400;
+    margin: 15px;
+    min-height: 36px;
+    background-color: #2e2e2e;
+    text-align: -webkit-center;
+}
+
+.list-btn:hover {
+    color: $shocklogic-orange;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    font-weight: 500;
+}

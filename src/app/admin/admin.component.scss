@@ -54,3 +54,5 @@ hr { border-color: $shocklogic-black; }
 :host ::ng-deep.mat-drawer-inner-container{
     display: contents;
 }
+
+.rotate-180{ transform: rotate(180deg); }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PersonsService } from 'src/app/core/services/persons.service';
+import { UserLogged } from 'src/app/core/models/interfaces/user-logged';
 import { DeviceScansService } from 'src/app/core/services/device-scans.service';
 
 @Component({
@@ -11,29 +13,29 @@ import { DeviceScansService } from 'src/app/core/services/device-scans.service';
 })
 export class LeadDetailsComponent implements OnInit {
 
-  user: any;
-  lead: any;
+  userLogged: UserLogged;
+  personId: number;
+  private sub: any;
+  leadDetails: any;
   notesForm: FormGroup;
   bNotes = false;
+  bSavingNotes = false;
 
   constructor(
     private router: Router,
     public snackBar: MatSnackBar,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private devicesScanService: DeviceScansService
+    private personsService: PersonsService,
+    private deviceScansService: DeviceScansService
   ) { }
 
-  ngOnInit() {
-    if(!localStorage.getItem('leadDetails')){
-      this.goToDashboard();
-      return;
-    }
-    this.user = JSON.parse(localStorage.getItem('leadLogged'));
-    this.lead = JSON.parse(localStorage.getItem('leadDetails'));
-    this.notesForm = this.formBuilder.group({
-      Notes: [this.lead.notes],
+  ngOnInit(): void {
+    this.userLogged = JSON.parse(localStorage.getItem('userLogged'));
+    this.sub = this.route.params.subscribe(params => {
+      this.personId = +params['personId']; // (+) converts string 'id' to a number
     });
-    this.notesForm.get('Notes').disable();
+    this.getLeadDetails();
   }
 
   openSnackBar(message: string){
@@ -42,42 +44,78 @@ export class LeadDetailsComponent implements OnInit {
     });
   }
 
-  goToLogin(){
-    this.router.navigate(['']);
+  goToHome(){
+    this.router.navigate(['pages/home']);
   }
 
-  goToDashboard(){
-    localStorage.removeItem('leadDetails');
-    this.router.navigate(['pages']);
+  getLeadDetails(){
+    this.personsService.getSpecificPersonRecord(this.userLogged.client_id, this.userLogged.project_id, this.personId)
+    .subscribe(
+      res => {
+        console.log(res);
+        this.leadDetails = res;
+        this.getLeadNotes();
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
-  isDisabled(){
+  getLeadNotes(){
+    this.deviceScansService.getNotesForAPerson(this.userLogged.client_id, this.userLogged.project_id, this.personId, this.userLogged.person_id)
+    .subscribe(
+      res => {
+        if(res == null){
+          this.leadDetails.Notes = '';
+          this.notesForm = this.formBuilder.group({
+            Notes: [''],
+          });
+        }
+        else{
+          this.leadDetails.Notes = res.Notes;
+          this.notesForm = this.formBuilder.group({
+            Notes: [this.leadDetails.Notes],
+          });
+        }
+        this.notesForm.get('Notes').disable();
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  editNotes(){
     this.bNotes = !this.bNotes;
     if(!this.bNotes) {
       this.notesForm.get('Notes').disable();
-    } else {
+    } 
+    else {
       this.notesForm.get('Notes').enable();
-     }
-   }
+    }
+  }
 
-   saveNotes(){
-    let formData = new FormData();
-    formData.append('Person_Id', this.lead.Person_Id);
-    formData.append('Notes', this.notesForm.get('Notes').value);
-    formData.append('Device_Id', this.user.personId);
-    this.devicesScanService.saveNotesForAPerson(this.user.clientId, this.user.projectId, formData)
+  saveNotes(){
+    this.bSavingNotes = true;
+    let notesFormData = new FormData();
+    notesFormData.append('Person_Id', this.personId.toString());
+    notesFormData.append('Notes', this.notesForm.get('Notes').value);
+    notesFormData.append('Device_Id', this.userLogged.person_id.toString());
+    this.deviceScansService.saveNotesForAPerson(this.userLogged.client_id, this.userLogged.project_id, notesFormData)
     .subscribe(
       res => {
-        this.lead.Notes = this.notesForm.get('Notes').value;
-        localStorage.setItem('leadDetails', JSON.stringify(this.lead));
+        this.bSavingNotes = false;
+        this.leadDetails.Notes = this.notesForm.get('Notes').value;
         this.openSnackBar("Notes saved successfully!");
-        this.isDisabled();
+        this.editNotes();
       },
       err => {
+        this.bSavingNotes = false;
         this.openSnackBar("Something went wrong!");
-        this.isDisabled();
+        this.editNotes();
       }
     );
-   }
+  }
 
 }

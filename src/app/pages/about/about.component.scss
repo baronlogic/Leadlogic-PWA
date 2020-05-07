@@ -1,3 +1,14 @@
+$shocklogic-font: 'Montserrat', sans-serif;
+$shocklogic-light: whitesmoke;
+$shocklogic-orange: #FD814C;
+
+.title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    font-weight: 300;
+    color: $shocklogic-orange;
+}
+
 .about-text{
     max-width: 426px;
     width: 80%;

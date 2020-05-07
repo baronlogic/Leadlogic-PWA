@@ -3,11 +3,11 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-pages',
-  templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.scss']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.scss']
 })
-export class PagesComponent implements OnInit {
+export class AdminComponent implements OnInit {
 
   constructor(
     private router: Router,
@@ -19,6 +19,11 @@ export class PagesComponent implements OnInit {
 
   ngOnInit(): void {
     this._focusMonitor.stopMonitoring(document.getElementById('btn'));
+  }
+
+  signOut(){
+    localStorage.clear();
+    this.router.navigate(['auth/login-admin'], { replaceUrl: true });
   }
 
 }

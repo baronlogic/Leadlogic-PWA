@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '~ngx-bottom-nav/theming'; // <-- include SASS lib file
 
 @include mat-core();
 
@@ -43,3 +44,4 @@ $theme-warn:    mat-palette($mat-red);
 $theme-theme: mat-dark-theme($theme-primary, $theme-accent, $theme-warn);
 
 @include angular-material-theme($theme-theme);
+@include ngx-bottom-nav-theme($theme-theme); // <-- include the bottom nav theme

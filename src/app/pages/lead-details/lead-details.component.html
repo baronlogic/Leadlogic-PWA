@@ -29,7 +29,7 @@
             </div>
             <form class="width-100" [formGroup]="notesForm">
                 <mat-form-field class="notes-area" appearance="outline">
-                    <textarea formControlName="Notes" matInput placeholder="Text notes here..."></textarea>
+                    <textarea formControlName="Notes" matInput cdkTextareaAutosize cdkAutosizeMinRows="7" placeholder="Text notes here..."></textarea>
                 </mat-form-field>
             </form>
         </mat-card>

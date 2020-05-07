@@ -25,6 +25,11 @@ mat-form-field.mat-form-field, .login-btn {
 
 //:host ::ng-deep .mat-form-field-wrapper{ padding-bottom: 0; }
 
-.login-btn { text-align: -webkit-center; min-height: 36.313px; }
+.login-btn { 
+    text-align: -ms-center;
+    text-align: -moz-center; 
+    text-align: -webkit-center; 
+    min-height: 36.313px; 
+}
 
 .second-btn { margin-top: 20px; color: $shocklogic-orange }

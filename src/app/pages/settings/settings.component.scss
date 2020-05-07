@@ -12,7 +12,9 @@ hr, .list-btn {
     margin: 15px;
     min-height: 36px;
     background-color: #2e2e2e;
-    text-align: -webkit-center;
+    text-align: -ms-center;
+    text-align: -moz-center; 
+    text-align: -webkit-center; 
 }
 
 .list-btn:hover {

@@ -1,33 +1,37 @@
-<div fxFill fxLayout="column" fxLayoutAlign="space-between center">
+<div fxFill fxLayout="column" fxLayoutAlign="none center">
     <div class="width-100 header">
         <mat-toolbar>
-            <button (click)="goToDashboard()" class="ml--15" mat-icon-button>
-                <mat-icon>navigate_before</mat-icon>
-            </button>
+            <button (click)="goToHome()" mat-icon-button><mat-icon>navigate_before</mat-icon></button>
             <span class="spacer"></span>
-            <span class="sign-in-title text-center"><strong class="bold">Lead</strong>logic</span>
+            <span class="title text-center"><strong>lead</strong>logic</span>
             <span class="spacer"></span>
-            <button *ngIf="!bNotes" (click)="isDisabled()" class="mr--15" mat-icon-button>
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button *ngIf="bNotes" (click)="saveNotes()" class="mr--15" mat-icon-button>
-                <mat-icon>done</mat-icon>
-            </button>
+            <span class="btn-none"></span>
         </mat-toolbar>
-        <mat-progress-bar *ngIf="false" mode="indeterminate"></mat-progress-bar>
     </div>
-    <div class="content width-100 text-center slide-in-fwd-center">
-        <mat-list class="bg-dark" role="list">
-            <mat-list-item class="shocklogic-font" role="listitem">Name: {{lead.First_Name}} {{lead.Family_Name}}</mat-list-item>
-            <mat-list-item class="shocklogic-font" role="listitem">Company: {{lead.Company}}</mat-list-item>
-            <mat-list-item class="shocklogic-font" role="listitem">Job Title: {{lead.Job_Title}}</mat-list-item>
-            <mat-list-item class="shocklogic-font" role="listitem">Email: {{lead.EMail}}</mat-list-item>
-            <mat-list-item class="shocklogic-font" role="listitem">Mobile: {{lead.Mobile}}</mat-list-item>
-        </mat-list>
-        <form class="bg-dark" [formGroup]="notesForm" (ngSubmit)="saveNotes()">
-            <mat-form-field class="lead-font text-orange" appearance="outline">
-                <textarea formControlName="Notes" class="form-control" matInput placeholder="Text notes here..."></textarea>
-            </mat-form-field>
-        </form>
+    <div *ngIf="!(leadDetails && leadDetails.Notes != null)" class="content width-100" fxLayout="column" fxLayoutAlign="center center">
+        <span class="title heartbeat"><strong>Loading</strong> Lead</span>
     </div>
-<div>
+    <div *ngIf="leadDetails && leadDetails.Notes != null" class="content width-100 slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center">
+        <div class="width-100" fxLayout="column" fxLayoutAlign="center center" style="overflow-x:auto;">
+            <table>
+                <tr><th>Name</th><td>{{leadDetails.Prefix_Title}} {{leadDetails.First_Name}} {{leadDetails.Family_Name}}</td></tr>
+                <tr><th>Company</th><td>{{leadDetails.Company}}</td></tr>
+                <tr><th>Job Title</th><td>{{leadDetails.Job_Title}}</td></tr>
+                <tr><th>Email</th><td>{{leadDetails.Email}}</td></tr>
+                <tr><th>Mobile</th><td>{{leadDetails.Mobile}}</td></tr>
+            </table>
+        </div>
+        <mat-card *ngIf="leadDetails.Notes != null" class="notes-card">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button *ngIf="!bNotes" (click)="editNotes()" class="notes-btn edit-btn" mat-flat-button>Edit...</button>
+                <button *ngIf="bNotes" (click)="editNotes()" class="notes-btn cancel-btn" mat-flat-button [disabled]='bSavingNotes'>Cancel</button>
+                <button *ngIf="bNotes" (click)="saveNotes()" class="notes-btn save-btn" mat-flat-button [disabled]='bSavingNotes'>Save</button>
+            </div>
+            <form class="width-100" [formGroup]="notesForm">
+                <mat-form-field class="notes-area" appearance="outline">
+                    <textarea formControlName="Notes" matInput cdkTextareaAutosize cdkAutosizeMinRows="8" placeholder="Text notes here..."></textarea>
+                </mat-form-field>
+            </form>
+        </mat-card>
+    </div>
+</div>

@@ -1,20 +1,21 @@
-<div fxFill class="slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center" >
-    <span class="sign-in-title text-center"><strong class="bold">Lead</strong>logic</span>
-    <form [formGroup]="signInForm" (ngSubmit)="handleSignIn()" fxLayout="column" fxLayoutAlign="center center">
+<div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="center center">
+    <span class="title mb-20"><strong>lead</strong>logic</span>
+    <form [formGroup]="signInForm" (ngSubmit)="handleSignIn()" class="width-100" fxLayout="column" fxLayoutAlign="center center">
         <mat-form-field appearance="outline">
             <mat-label>User ID</mat-label>
-            <input matInput formControlName="Identifier" class="form-control">
+            <input matInput formControlName="Identifier">
         </mat-form-field>
         <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
-            <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="Password" class="form-control">
+            <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="Password">
             <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
                 <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
-        <button color="primary" class="width-login-btn" mat-raised-button [disabled]="!signInForm.valid || bSignIn">
-            <span *ngIf="!bSignIn" class="btn-login-text">SIGN IN</span>
+        <button color="primary" class="login-btn" mat-raised-button [disabled]="!signInForm.valid || bSignIn">
+            <span *ngIf="!bSignIn">SIGN IN</span>
             <mat-spinner *ngIf="bSignIn" mode="indeterminate" [diameter]="30"></mat-spinner>
         </button>
     </form>
+    <button type="button" class="login-btn second-btn" mat-button routerLink="/auth/login-admin">Go to Admin Mode</button>
 </div>

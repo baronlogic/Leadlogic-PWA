@@ -1,0 +1,58 @@
+$shocklogic-orange: #FD814C;
+$shocklogic-black: #00000033;
+
+.main-content{
+    width: 100%;
+    background-color: #222327;
+}
+
+.sidenav {
+    padding: 20px;
+    height: 100%;
+}
+
+.title{
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    font-weight: 300;
+    color: $shocklogic-orange;
+}
+
+.sidenav-subtitle{
+    letter-spacing: 1px;
+    font-weight: 300;
+    color: $shocklogic-orange;
+}
+
+hr { border-color: $shocklogic-black; }
+
+.sidenav-btn{
+    text-align: left;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 400;
+    margin: 5px;
+    background-color: #3f3e3e;
+}
+
+.sidenav-btn:hover{
+    color: $shocklogic-orange;
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    font-weight: 500;
+}
+
+.icon-25{
+    width: 25px;
+    height: 25px;
+}
+
+.heart{
+    color: red;
+}
+
+:host ::ng-deep.mat-drawer-inner-container{
+    display: contents;
+}
+
+.rotate-180{ transform: rotate(180deg); }

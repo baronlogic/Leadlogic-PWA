@@ -1,87 +1,44 @@
-<mat-progress-bar *ngIf="bLeads" mode="indeterminate"></mat-progress-bar>
-<div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="none center" *ngIf="true">
-    <div class="header width-100" fxLayout="column" fxLayoutAlign="none center" *ngIf="this.contactsData?.length > 0">
+<div fxFill fxLayout="column" fxLayoutAlign="none center">
+    <div class="header width-100" fxLayout="column" fxLayoutAlign="none center" *ngIf="this.myScansData?.length > 0">
         <mat-form-field appearance="outline">
             <mat-label>Search</mat-label>
-            <input matInput (keyup)="applyFilter($event.target.value)">
+            <input [(ngModel)]="listFilter" matInput>
         </mat-form-field>
-        <mat-toolbar>
+        <mat-toolbar class="second-toolbar">
             <span class="spacer"></span>
-            My Scans
+            <span class="title"><strong>My</strong> Scans</span>
             <span class="spacer"></span>
         </mat-toolbar>
     </div>
-    <div class="content width-100" fxLayout="column" fxLayoutAlign="center center" *ngIf="this.contactsData?.length == 0">
+    <div class="content width-100" fxLayout="column" fxLayoutAlign="center center" *ngIf="!this.myScansData">
+        <span class="title heartbeat"><strong>Loading</strong> Leads</span>
+    </div> 
+    <div class="content width-100 slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center" *ngIf="this.myScansData?.length == 0">
         <span >You don't have leads scanned yet</span>
-    </div>
-    <div *ngIf="bError" class="content width-100" fxLayout="column" fxLayoutAlign="center center">
-        <h3>Something went wrong</h3>
-        <h4>There was a problem loading the leads...</h4>
-        <h4 *ngIf="customError">{{customError}}</h4>
+    </div>  
+    <div *ngIf="bError" class="content width-100 slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center">
+        <h3 class="error-msg">Something went wrong</h3>
+        <h4 class="error-msg">There was a problem loading the leads...</h4>
+        <h4 class="error-msg" *ngIf="customError">{{customError}}</h4>
         <button (click)="loadLeads()" class="try-again-btn" mat-raised-button>
             <span>TRY AGAIN</span>
         </button>
     </div>
-    <div class="content width-100" *ngIf="this.contactsData?.length > 0">
-        <table mat-table [dataSource]="this.dataSource" multiTemplateDataRows class="mat-elevation-z8">
-            <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
-                <td class="text-justify" mat-cell *matCellDef="let element">
-                    <span class="fs-12" *ngIf="element[column]">{{element[column]}}</span>
-                    <span class="fs-12" *ngIf="!element[column]">None</span>
-                    
-                </td>
-            </ng-container>
-            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-            <ng-container matColumnDef="expandedDetail">
-                <td class="bg-details" mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
-                    <div fxLayoutAlign="center center" class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                        <div class="mb-20 mt-20 text-center" style="overflow-x:auto;">
-                            <table class="details-table">
-                                <tr class="details-tr">
-                                    <td class="details-td">First Name</td>
-                                    <td class="details-td" *ngIf="element.First_Name">{{element.First_Name}}</td>
-                                    <td class="details-td" *ngIf="!element.First_Name">None</td>
-                                </tr>
-                                <tr class="details-tr">
-                                    <td class="details-td">Family Name</td>
-                                    <td class="details-td" *ngIf="element.Family_Name">{{element.Family_Name}}</td>
-                                    <td class="details-td" *ngIf="!element.Family_Name">None</td>
-                                </tr>
-                                <tr class="details-tr">
-                                    <td class="details-td">Company</td>
-                                    <td class="details-td" *ngIf="element.Company">{{element.Company}}</td>
-                                    <td class="details-td" *ngIf="!element.Company">None</td>
-                                </tr>
-                                <tr class="details-tr">
-                                    <td class="details-td">Job Title</td>
-                                    <td class="details-td" *ngIf="element.Job_Title">{{element.Job_Title}}</td>
-                                    <td class="details-td" *ngIf="!element.Job_Title">None</td>
-                                </tr>
-                                <tr class="details-tr">
-                                    <td class="details-td">Email</td>
-                                    <td class="details-td" *ngIf="element.EMail">{{element.EMail}}</td>
-                                    <td class="details-td" *ngIf="!element.EMail">None</td>
-                                </tr>
-                                <tr class="details-tr">
-                                    <td class="details-td">Mobile</td>
-                                    <td class="details-td" *ngIf="element.Mobile">{{element.Mobile}}</td>
-                                    <td class="details-td" *ngIf="!element.Mobile">None</td>
-                                </tr>
-                            </table>
-                            <button (click)="goToDetails(element)" class="mt-20" color="primary" mat-raised-button [disabled]="bDetails">
-                                <span>DETAILS</span>
-                            </button>
-                        </div>
-                    </div>
-                </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-            <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="example-element-row" 
-                [class.example-expanded-row]="expandedElement === element" 
-                (click)="expandedElement = expandedElement === element ? null : element">
-            </tr>
-            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
-        </table>
+    <div class="content width-100 slide-in-fwd-center" fxLayout="column" fxLayoutAlign="none center" *ngIf="this.myScansData?.length > 0">
+        <div class="width-100 scrollable-element" fxLayout="column" fxLayoutAlign="none center" style="overflow-x:auto;">
+            <span *ngIf="!(this.filteredScansData?.length > 0)" class="title mt-20"><strong>No</strong> matches</span>
+            <table>
+                <!--<tr><th>Name</th><th>Company</th></tr>-->
+                <ng-container *ngFor="let lead of filteredScansData">
+                    <tr 
+                        (click)="selectLead(lead.Person_Id)" 
+                        *ngIf="lead.Family_Name || lead.First_Name || lead.Company"
+                    >
+                        <td><strong>{{lead.Family_Name}}</strong> {{lead.First_Name}}</td>
+                        <td>{{lead.Company}}</td>
+                    </tr>
+                </ng-container>
+            </table>
+        </div>
     </div>
-<div>
+</div>

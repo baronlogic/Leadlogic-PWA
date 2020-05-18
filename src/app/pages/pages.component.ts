@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Router } from '@angular/router';
 import {BottomNavItem} from 'ngx-bottom-nav';
 
 @Component({
@@ -9,14 +11,21 @@ import {BottomNavItem} from 'ngx-bottom-nav';
 export class PagesComponent implements OnInit {
 
   items: BottomNavItem[] = [
-    {icon: 'home', label: 'Home', routerLink: 'dashboard'},
-    {icon: 'center_focus_weak', label: 'Scan', routerLink: 'scan'},
-    {icon: 'settings', label: 'Settings', routerLink: 'settings'},
+    {icon: 'home', label: 'Home', routerLink: '/pages/home'},
+    {icon: 'center_focus_weak', label: 'Scan', routerLink: '/pages/scan'},
+    {icon: 'settings', label: 'Settings', routerLink: '/pages/settings'},
   ];
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private _focusMonitor: FocusMonitor
+  ) 
+  { 
+    this._focusMonitor.stopMonitoring(document.getElementById('btn'));
+  }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this._focusMonitor.stopMonitoring(document.getElementById('btn'));
   }
 
 }

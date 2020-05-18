@@ -1,27 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { FlexLayoutModule } from "@angular/flex-layout";
-import {BottomNavModule} from 'ngx-bottom-nav';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import {BottomNavModule} from 'ngx-bottom-nav';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
-    BottomNavModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    BottomNavModule
   ],
   exports: [
+    FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     FlexLayoutModule,
-    BottomNavModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    BottomNavModule
   ]
 })
 export class SharedModule { }

@@ -1,0 +1,36 @@
+<mat-drawer-container fxFill autosize>
+    <mat-drawer fxLayout="column" #drawer class="sidenav text-center" mode="over">
+        <div class="header">
+            <span class="text-center title"><strong>Admin</strong> Mode</span>
+        </div>
+        <div class="content">
+            <br><hr><br>
+            <div fxLayout="column">
+                <button id="btn" class="sidenav-btn" mat-button (click)="signOut()"><mat-icon class="icon-25 rotate-180">exit_to_app</mat-icon> SIGN OUT</button>
+            </div>
+        </div>
+        <div fxLayout="column" class="footer">
+            <!--<span>
+                Developed by Rafael Baron
+            </span>-->
+            <span class="sidenav-subtitle">
+                Made with <span class="heart">❤</span> by Shocklogic
+            </span>
+        </div>
+    </mat-drawer>
+    <div fxFill fxLayout="column" fxLayoutAlign="space-between center">
+        <div class="width-100 header">
+            <mat-toolbar>
+                <button id="btn" mat-icon-button (click)="drawer.toggle()"><mat-icon>menu</mat-icon></button>
+                <span class="spacer"></span>
+                <span class="title text-center"><strong>Admin</strong> Mode</span>
+                <span class="spacer"></span>
+                <span class="btn-none"></span>
+            </mat-toolbar>
+        </div>
+        <div class="content width-100 main-content" fxLayout="column" fxLayoutAlign="center center">
+            <span class="title">Admin Mode is in development</span>
+            <!--<router-outlet></router-outlet>-->
+        </div>
+    </div>
+</mat-drawer-container>

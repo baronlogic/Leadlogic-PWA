@@ -1,26 +1,14 @@
-<mat-list class="width-100 slide-in-fwd-center">
-    <mat-list-item>
-        <button (click)="goToAbout()" class="width-100 bg-dark font-larger" mat-button>About Shocklogic</button>
-    </mat-list-item>
-    <mat-list-item>
-        <button (click)="goToAccount()" class="width-100 bg-dark font-larger" mat-button>Account Info</button>
-    </mat-list-item>
-    <mat-list-item>
-        <button (click)="emailLeads()" class="width-100 bg-dark font-larger center-spinner-btn" mat-button [disabled]="bEmail || bDownload">
-            <span *ngIf="!bEmail">Email Leads</span>
-            <mat-spinner *ngIf="bEmail" mode="indeterminate" [diameter]="30"></mat-spinner>
-        </button>
-    </mat-list-item>
-    <mat-list-item>
-        <button (click)="downloadLeads()" class="width-100 bg-dark font-larger center-spinner-btn" mat-button [disabled]="bEmail || bDownload">
-            <span *ngIf="!bDownload">Download Leads</span>
-            <mat-spinner *ngIf="bDownload" mode="indeterminate" [diameter]="30"></mat-spinner>
-        </button>
-    </mat-list-item>
-    <br>
-    <mat-divider></mat-divider>
-    <br>
-    <mat-list-item>
-        <button (click)="signOut()" class="width-100 bg-dark font-larger" mat-button>Sign Out</button>
-    </mat-list-item>
-</mat-list>
+<div class="width-100 slide-in-fwd-center" fxLayout="column" fxLayoutAlign="none center">
+    <button (click)="goToAbout()" class="list-btn" mat-button>About Shocklogic</button>
+    <button (click)="goToAccount()" class="list-btn" mat-button>Account Info</button>
+    <button (click)="emailLeads()" class="list-btn" mat-button [disabled]="bEmail || bDownload">
+        <span *ngIf="!bEmail">Email Leads</span>
+        <mat-spinner *ngIf="bEmail" mode="indeterminate" [diameter]="30"></mat-spinner>
+    </button>
+    <button (click)="downloadLeads()" class="list-btn" mat-button [disabled]="bEmail || bDownload">
+        <span *ngIf="!bDownload">Download Leads</span>
+        <mat-spinner *ngIf="bDownload" mode="indeterminate" [diameter]="30"></mat-spinner>
+    </button>
+    <hr>
+    <button (click)="signOut()" class="list-btn" mat-button>Sign Out</button>
+</div>

@@ -1,43 +1,30 @@
-<div fxFill fxLayout="column" fxLayoutAlign="space-between center">
+<div fxFill fxLayout="column" fxLayoutAlign="none center">
     <div class="width-100 header">
         <mat-toolbar>
-            <button (click)="goToSettings()" class="ml--15" mat-icon-button>
-                <mat-icon>navigate_before</mat-icon>
+            <button (click)="goToHome()" mat-icon-button><mat-icon>navigate_before</mat-icon></button>
+            <span class="spacer"></span>
+            <span class="title text-center"><strong>lead</strong>logic</span>
+            <span class="spacer"></span>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
             </button>
-            <span class="spacer"></span>
-            <span class="sign-in-title text-center"><strong class="bold">Lead</strong>logic</span>
-            <span class="spacer"></span>
-            <span class="btn-none"></span>
+            <mat-menu #menu="matMenu">
+                <button class="signout-btn" mat-menu-item>
+                  <mat-icon class="rotate-180">exit_to_app</mat-icon>
+                  <span>Sign Out</span>
+                </button>
+            </mat-menu>
         </mat-toolbar>
-        <mat-progress-bar *ngIf="bUser" mode="indeterminate"></mat-progress-bar>
     </div>
-    <div class="content width-100 text-center slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center">
-        <div *ngIf="bError" class="content width-100" fxLayout="column" fxLayoutAlign="center center">
-            <h3>Something went wrong</h3>
-            <h4>There was a problem loading the account info...</h4>
-            <button (click)="loadInfo()" class="try-again-btn" mat-raised-button>
-                <span>TRY AGAIN</span>
-            </button>
-                </div>
-        <div *ngIf="userData" class="width-80" style="overflow-x:auto;">
+    <div class="content width-100 slide-in-fwd-center" fxLayout="column" fxLayoutAlign="center center">
+        <div class="width-100" fxLayout="column" fxLayoutAlign="center center" style="overflow-x:auto;">
             <table>
-                <tr>
-                    <th class="text-left">Client: {{ userData.Client_Id}}</th>
-                    <th class="text-right">Project: {{ userData.Project_Id}}</th>
-                </tr>
-                <tr>
-                    <td *ngIf="userData.First_Name && userData.Family_Name" colspan="2">Name: {{ userData.First_Name }} {{ userData.Family_Name }}</td>
-                    <td *ngIf="!userData.First_Name && !userData.Family_Name" colspan="2">Name: None</td>
-                </tr>
-                <tr>
-                    <td *ngIf="userData.Company" colspan="2">Company: {{ userData.Company }}</td>
-                    <td *ngIf="!userData.Company" colspan="2">Company: None</td>
-                </tr>
-                <tr>
-                    <td *ngIf="userData.Job_Title" colspan="2">Job title: {{ userData.Job_Title }}</td>
-                    <td *ngIf="!userData.Job_Title" colspan="2">Job title: None</td>
-                </tr>
+                <tr><th>Client ID</th><td>{{userLogged.client_id}}</td></tr>
+                <tr><th>Project ID</th><td>{{userLogged.project_id}}</td></tr>
+                <tr><th>User ID</th><td>{{userLogged.person_id}}</td></tr>
+                <tr><th>Email</th><td>{{userLogged.id}}</td></tr>
+                <tr><th>Name</th><td>{{userLogged.user_name}}</td></tr>
             </table>
         </div>
     </div>
-<div>
+</div>

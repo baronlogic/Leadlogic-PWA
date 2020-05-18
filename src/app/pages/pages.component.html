@@ -1,16 +1,40 @@
-<div fxFill fxLayout="column" fxLayoutAlign="space-between center">
-    <div class="width-100 header">
-        <mat-toolbar>
-            <span class="spacer"></span>
-            <span class="sign-in-title text-center"><strong class="bold">Lead</strong>logic</span>
-            <span class="spacer"></span>
-        </mat-toolbar>
-        <mat-progress-bar *ngIf="false" mode="indeterminate"></mat-progress-bar>
+<mat-drawer-container fxFill autosize>
+    <mat-drawer fxLayout="column" #drawer class="sidenav text-center" mode="over">
+        <div class="header">
+            <span class="text-center title"><strong>lead</strong>logic</span>
+        </div>
+        <div class="content">
+            <br><hr><br>
+            <div fxLayout="column">
+                <button id="btn" class="sidenav-btn" mat-button (click)="drawer.close()" routerLink="/pages/home"><mat-icon class="icon-25">home</mat-icon> HOME</button>
+                <button id="btn" class="sidenav-btn" mat-button (click)="drawer.close()" routerLink="/pages/scan"><mat-icon class="icon-25">center_focus_weak</mat-icon> SCAN</button>
+                <button id="btn" class="sidenav-btn" mat-button (click)="drawer.close()" routerLink="/pages/settings"><mat-icon class="icon-25">settings</mat-icon> SETTINGS</button>
+            </div>
+        </div>
+        <div fxLayout="column" class="footer">
+            <!--<span>
+                Developed by Rafael Baron
+            </span>-->
+            <span class="sidenav-subtitle">
+                Made with <span class="heart">❤</span> by Shocklogic
+            </span>
+        </div>
+    </mat-drawer>
+    <div fxFill fxLayout="column" fxLayoutAlign="space-between center">
+        <div class="width-100 header">
+            <mat-toolbar>
+                <button id="btn" mat-icon-button (click)="drawer.toggle()" fxHide="true" fxShow.gt-xs><mat-icon>menu</mat-icon></button>
+                <span class="spacer"></span>
+                <span class="title text-center"><strong>lead</strong>logic</span>
+                <span class="spacer"></span>
+                <span class="btn-none" fxHide="true" fxShow.gt-xs></span>
+            </mat-toolbar>
+        </div>
+        <div class="content main-content">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="width-100 footer" fxShow="true" fxHide.gt-xs>
+            <ngx-bottom-nav [items]="items"></ngx-bottom-nav>
+        </div>
     </div>
-    <div class="content width-100 text-center slide-in-fwd-center">
-        <router-outlet></router-outlet>
-    </div>
-    <div class="footer width-100">
-        <ngx-bottom-nav [items]="items"></ngx-bottom-nav>
-    </div>
-<div>
+</mat-drawer-container>

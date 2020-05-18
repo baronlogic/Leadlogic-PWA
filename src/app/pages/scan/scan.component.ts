@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PersonsService } from 'src/app/core/services/persons.service';
 import { DeviceScansService } from 'src/app/core/services/device-scans.service';
+import { UserLogged } from 'src/app/core/models/interfaces/user-logged';
 
 @Component({
   selector: 'app-scan',
@@ -24,12 +25,14 @@ export class ScanComponent implements OnInit {
   //bLoading is used to display the button to scan again
   bScanAgain = false;
   bPersonId = false;
-  personId: string;
+  personId: number;
   personScanned: any;
 
-  user: any;
+  user: UserLogged;
 
   notesForm: FormGroup;
+
+  bSavingNotes = false;
 
   constructor(
     private router: Router,
@@ -41,7 +44,7 @@ export class ScanComponent implements OnInit {
   { }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('leadLogged'));
+    this.user = JSON.parse(localStorage.getItem('userLogged'));
     this.notesForm = this.formBuilder.group({
       Notes: [''],
     });
@@ -49,7 +52,7 @@ export class ScanComponent implements OnInit {
 
   openSnackBar(message: string){
     this.snackBar.open(message, 'Close', {
-      duration: 3000,
+      duration: 5000,
     });
   }
 
@@ -110,14 +113,14 @@ export class ScanComponent implements OnInit {
     return year+"-"+month+"-"+day+" "+hour+":"+minutes+":"+seconds;
   }
 
-  saveScanRecord(personId: string){
+  saveScanRecord(personId: number){
     let formData = new FormData();
-    formData.append('Device_Id', this.user.personId);
-    formData.append('Person_Id', personId);
+    formData.append('Device_Id', this.user.person_id.toString());
+    formData.append('Person_Id', personId.toString());
     formData.append('Scan_Result', 'VALID');
     formData.append('Misc_Data', 'Lead Retrieval');
     formData.append('Last_Scanned', this.getTimeFormat());
-    this.devicesScanService.saveScanRecord(this.user.clientId, this.user.projectId, formData)
+    this.devicesScanService.saveScanRecord(this.user.client_id, this.user.project_id, formData)
     .subscribe(
       res => {
         //console.log(res);
@@ -133,7 +136,7 @@ export class ScanComponent implements OnInit {
     );
   }
 
-  getUserData(clientId: string, projectId: string, personId: string){
+  getUserData(clientId: string, projectId: string, personId: number){
     this.personsService.getSpecificPersonRecord(clientId, projectId, personId)
     .subscribe(
       res => {
@@ -176,16 +179,17 @@ export class ScanComponent implements OnInit {
     }
     else{
       this.personId = $event;
-      this.getUserData(this.user.clientId, this.user.projectId, this.personId);
+      this.getUserData(this.user.client_id, this.user.project_id, this.personId);
     }
   }
 
   getScannedPersonData(){
-    this.personsService.getSpecificPersonRecord(this.user.clientId, this.user.projectId, this.personId)
+    this.personsService.getSpecificPersonRecord(this.user.client_id, this.user.project_id, this.personId)
     .subscribe(
       res => {
         console.log(res);
         this.personScanned = res;
+        this.getLeadNotes();
         this.bPersonId = true;
         this.bLoading = false;
       },
@@ -197,20 +201,48 @@ export class ScanComponent implements OnInit {
     );
   }
 
-  saveNotes(){
-    let formData = new FormData();
-    formData.append('Person_Id', this.personId);
-    formData.append('Notes', this.notesForm.get('Notes').value);
-    formData.append('Device_Id', this.user.personId);
-    this.devicesScanService.saveNotesForAPerson(this.user.clientId, this.user.projectId, formData)
+  getLeadNotes(){
+    this.devicesScanService.getNotesForAPerson(this.user.client_id, this.user.project_id, this.personId, this.user.person_id)
     .subscribe(
       res => {
-        console.log(res);
-        this.openSnackBar("Notes saved successfully!");
-        this.reloadScanner();
-        this.personScanned = false;
+        if(res == null){
+          this.personScanned.Notes = '';
+          this.notesForm = this.formBuilder.group({
+            Notes: [''],
+          });
+        }
+        else{
+          this.personScanned.Notes = res.Notes;
+          this.notesForm = this.formBuilder.group({
+            Notes: [this.personScanned.Notes],
+          });
+        }
       },
       err => {
+        console.log(err);
+      }
+    );
+  }
+
+  saveNotes(){
+    this.bSavingNotes = true;
+    let formData = new FormData();
+    formData.append('Person_Id', this.personId.toString());
+    formData.append('Notes', this.notesForm.get('Notes').value);
+    formData.append('Device_Id', this.user.person_id.toString());
+    this.devicesScanService.saveNotesForAPerson(this.user.client_id, this.user.project_id, formData)
+    .subscribe(
+      res => {
+        this.bSavingNotes = false;
+        console.log(res);
+        this.openSnackBar("Notes saved successfully!");
+        //this.reloadScanner();
+        this.router.navigate(['pages/home']);
+        this.personScanned = false;
+
+      },
+      err => {
+        this.bSavingNotes = false;
         console.log(err);
         this.openSnackBar("Something went wrong!");
         this.reloadScanner();

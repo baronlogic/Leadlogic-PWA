@@ -1,0 +1,26 @@
+<div class="slide-in-fwd-center" fxFill fxLayout="column" fxLayoutAlign="center center">
+    <span class="title mb-20"><strong>Admin</strong> Mode</span>
+    <span class="subtitle mb-20">Please login using your participant registration details or Shocklogic client account</span>
+    <form [formGroup]="signInForm" (ngSubmit)="handleSignIn()" class="width-100" fxLayout="column" fxLayoutAlign="center center">
+        <mat-form-field appearance="outline">
+            <mat-label>Username or Email</mat-label>
+            <input matInput formControlName="Email">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="Password">
+            <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="checkingInputEmail()">
+            <mat-label>Client ID</mat-label>
+            <input matInput formControlName="Client_Id" class="input-uppercase">
+        </mat-form-field>
+        <button color="primary" class="login-btn" mat-raised-button [disabled]="!signInForm.valid || bSignIn || (checkingInputEmail() && checkInputClientId())">
+            <span *ngIf="!bSignIn">SIGN IN</span>
+            <mat-spinner *ngIf="bSignIn" mode="indeterminate" [diameter]="30"></mat-spinner>
+        </button>
+    </form>
+    <button type="button" class="login-btn second-btn" mat-button routerLink="/auth/login">Go to Standard Mode</button>
+</div>

@@ -17,9 +17,11 @@ export class LeadDetailsComponent implements OnInit {
   personId: number;
   private sub: any;
   leadDetails: any;
+  existingText: string;
   notesForm: FormGroup;
   bNotes = false;
   bSavingNotes = false;
+  bSaved = false;
 
   constructor(
     private router: Router,
@@ -90,13 +92,19 @@ export class LeadDetailsComponent implements OnInit {
     this.bNotes = !this.bNotes;
     if(!this.bNotes) {
       this.notesForm.get('Notes').disable();
+      if(!this.bSaved){
+        this.notesForm.get('Notes').setValue(this.existingText);
+      }
+      this.bSaved = false;
     } 
     else {
       this.notesForm.get('Notes').enable();
+      this.existingText = this.notesForm.get('Notes').value;
     }
   }
 
   saveNotes(){
+    this.bSaved = true;
     this.bSavingNotes = true;
     let notesFormData = new FormData();
     notesFormData.append('Person_Id', this.personId.toString());

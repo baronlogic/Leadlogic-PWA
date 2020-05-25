@@ -64,7 +64,7 @@ export class ScanComponent implements OnInit {
     this.scannerEnabled = true;
     this.bPersonId = false;
     this.bScanAgain = false;
-    this.currentDevice = this.auxDevice;
+    //this.currentDevice = this.auxDevice;
   }
 
   getTimeFormat(){

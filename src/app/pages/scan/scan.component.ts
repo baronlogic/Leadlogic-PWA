@@ -161,9 +161,22 @@ export class ScanComponent implements OnInit {
     this.hasDevices = Boolean(devices && devices.length);
   }
 
-  onDeviceSelectChange(selected: string) {
+  onDeviceSelectChange1(selected: string) {
     const device = this.availableDevices.find(x => x.deviceId === selected);
     this.currentDevice = device || null;
+  }
+
+  onDeviceSelectChange(selected: string) {
+
+    //first we set the select to no camera
+    this.onDeviceSelectChange1("")
+
+    //we hope that the component met its life cycle and we set the camera that if we want
+    setTimeout(()=>{
+      this.onDeviceSelectChange1(selected)
+    },300);
+
+
   }
 
   scanSuccessHandler($event){
